@@ -54,11 +54,47 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
           />
         </motion.div>
 
+        {!reducedMotion && (
+          <>
+            <div
+              aria-hidden="true"
+              className="glitch-slice-a pointer-events-none absolute -inset-[3%] mix-blend-screen"
+              style={{ animationDelay: "500ms" }}
+            >
+              <Image
+                src={imageSrc}
+                alt=""
+                fill
+                sizes="100vw"
+                aria-hidden="true"
+                className="object-cover object-[center_20%]"
+                style={{ filter: "grayscale(1) brightness(0.9) sepia(1) hue-rotate(255deg) saturate(6)" }}
+              />
+            </div>
+
+            <div
+              aria-hidden="true"
+              className="glitch-slice-b pointer-events-none absolute -inset-[3%] mix-blend-screen"
+              style={{ animationDelay: "500ms" }}
+            >
+              <Image
+                src={imageSrc}
+                alt=""
+                fill
+                sizes="100vw"
+                aria-hidden="true"
+                className="object-cover object-[center_20%]"
+                style={{ filter: "grayscale(1) brightness(0.9) sepia(1) hue-rotate(150deg) saturate(6)" }}
+              />
+            </div>
+          </>
+        )}
+
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/70" />
         {!reducedMotion && (
           <div
             aria-hidden="true"
-            className="glitch-scanline pointer-events-none absolute inset-x-0 h-24 bg-gradient-to-b from-transparent via-foreground/15 to-transparent"
+            className="glitch-scanline pointer-events-none absolute inset-x-0 h-24 bg-gradient-to-b from-transparent via-[#ff2bd6]/25 to-transparent"
             style={{ animationDelay: "500ms" }}
           />
         )}

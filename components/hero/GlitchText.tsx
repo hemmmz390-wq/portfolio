@@ -8,9 +8,14 @@ interface GlitchTextProps {
   className?: string;
 }
 
+const ghosts = [
+  { className: "glitch-ghost-a", color: "#ff2bd6" },
+  { className: "glitch-ghost-b", color: "#00e5ff" },
+  { className: "glitch-ghost-c", color: "#b026ff" },
+];
+
 export function GlitchText({ text, delayMs = 0, className = "" }: GlitchTextProps) {
   const reducedMotion = usePrefersReducedMotion();
-  const delay = `${delayMs}ms`;
 
   if (reducedMotion) {
     return <span className={`block ${className}`}>{text}</span>;
@@ -18,23 +23,20 @@ export function GlitchText({ text, delayMs = 0, className = "" }: GlitchTextProp
 
   return (
     <span className={`relative block ${className}`}>
-      <span className="glitch-layer relative z-10 block" style={{ animationDelay: delay }}>
+      <span className="glitch-layer relative z-10 block" style={{ animationDelay: `${delayMs}ms` }}>
         {text}
       </span>
-      <span
-        aria-hidden="true"
-        className="glitch-channel absolute inset-0 z-0 block text-[#ff0040] mix-blend-screen"
-        style={{ animationDelay: delay, transform: "translateX(-3px)" }}
-      >
-        {text}
-      </span>
-      <span
-        aria-hidden="true"
-        className="glitch-channel absolute inset-0 z-0 block text-[#00e5ff] mix-blend-screen"
-        style={{ animationDelay: delay, transform: "translateX(3px)" }}
-      >
-        {text}
-      </span>
+
+      {ghosts.map((ghost) => (
+        <span
+          key={ghost.className}
+          aria-hidden="true"
+          className={`${ghost.className} absolute inset-0 z-0 block mix-blend-screen`}
+          style={{ animationDelay: `${delayMs}ms`, color: ghost.color }}
+        >
+          {text}
+        </span>
+      ))}
     </span>
   );
 }
