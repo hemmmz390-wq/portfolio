@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { League_Spartan, Inter } from "next/font/google";
 import "./globals.css";
+import { AnimatedBackground } from "@/components/motion/AnimatedBackground";
 import { NoiseOverlay } from "@/components/motion/NoiseOverlay";
 import { CustomCursor } from "@/components/motion/CustomCursor";
 import { Navbar } from "@/components/layout/Navbar";
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${leagueSpartan.variable} ${inter.variable}`}>
       <body className="min-h-screen antialiased">
         <LenisProvider>
+          <AnimatedBackground />
           <NoiseOverlay />
           <CustomCursor />
           <Navbar name={siteSettings.name} links={navLinks} socials={siteSettings.socials} />

@@ -265,8 +265,71 @@ body {
   }
 }
 
+/* Slow ambient drift behind the whole site. Transform/opacity only, so it
+   stays on the compositor and never triggers layout. */
+@keyframes bg-drift-a {
+  0%,
+  100% {
+    transform: translate3d(-12%, -8%, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(10%, 12%, 0) scale(1.25);
+    opacity: 0.9;
+  }
+}
+
+@keyframes bg-drift-b {
+  0%,
+  100% {
+    transform: translate3d(14%, 10%, 0) scale(1.15);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate3d(-10%, -12%, 0) scale(0.95);
+    opacity: 0.4;
+  }
+}
+
+@keyframes bg-drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 8%, 0) scale(1.05);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate3d(-14%, -6%, 0) scale(1.3);
+    opacity: 0.8;
+  }
+}
+
+@keyframes bg-grid-pan {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -80px, 0);
+  }
+}
+
+.bg-drift-a {
+  animation: bg-drift-a 34s ease-in-out infinite;
+}
+
+.bg-drift-b {
+  animation: bg-drift-b 44s ease-in-out infinite;
+}
+
+.bg-drift-c {
+  animation: bg-drift-c 52s ease-in-out infinite;
+}
+
+.bg-grid-pan {
+  animation: bg-grid-pan 24s linear infinite;
+}
+
 .glitch-layer {
-  animation: glitch-shift 600ms steps(2, end) 1 both;
+  animation: glitch-shift 880ms steps(2, end) 1 both;
 }
 
 /* CSS-driven so the hero portrait is never blank while JS hydrates. */
@@ -275,27 +338,27 @@ body {
 }
 
 .glitch-ghost-a {
-  animation: glitch-ghost-a 700ms steps(2, end) 1 both;
+  animation: glitch-ghost-a 1020ms steps(2, end) 1 both;
 }
 
 .glitch-ghost-b {
-  animation: glitch-ghost-b 700ms steps(2, end) 1 both;
+  animation: glitch-ghost-b 1020ms steps(2, end) 1 both;
 }
 
 .glitch-ghost-c {
-  animation: glitch-ghost-c 700ms steps(2, end) 1 both;
+  animation: glitch-ghost-c 1020ms steps(2, end) 1 both;
 }
 
 .glitch-slice-a {
-  animation: glitch-slice-a 750ms steps(3, end) 1 both;
+  animation: glitch-slice-a 1100ms steps(3, end) 1 both;
 }
 
 .glitch-slice-b {
-  animation: glitch-slice-b 750ms steps(3, end) 1 both;
+  animation: glitch-slice-b 1100ms steps(3, end) 1 both;
 }
 
 .glitch-scanline {
-  animation: scanline-sweep 700ms ease-out 1 both;
+  animation: scanline-sweep 1000ms ease-out 1 both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -317,6 +380,14 @@ body {
   .glitch-slice-b,
   .glitch-scanline {
     display: none !important;
+  }
+
+  /* Keep the ambient field as a static wash rather than removing it. */
+  .bg-drift-a,
+  .bg-drift-b,
+  .bg-drift-c,
+  .bg-grid-pan {
+    animation: none !important;
   }
 }
 

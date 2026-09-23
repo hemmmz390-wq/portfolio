@@ -50,7 +50,7 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_20%] grayscale contrast-[1.15] brightness-[0.75]"
+            className="object-cover object-[center_4%] grayscale contrast-[1.15] brightness-[0.75]"
           />
         </motion.div>
 
@@ -67,7 +67,7 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
                 fill
                 sizes="100vw"
                 aria-hidden="true"
-                className="object-cover object-[center_20%]"
+                className="object-cover object-[center_4%]"
                 style={{ filter: "grayscale(1) brightness(0.9) sepia(1) hue-rotate(255deg) saturate(6)" }}
               />
             </div>
@@ -83,7 +83,7 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
                 fill
                 sizes="100vw"
                 aria-hidden="true"
-                className="object-cover object-[center_20%]"
+                className="object-cover object-[center_4%]"
                 style={{ filter: "grayscale(1) brightness(0.9) sepia(1) hue-rotate(150deg) saturate(6)" }}
               />
             </div>
@@ -103,14 +103,14 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
       <div className="relative z-10 flex w-full flex-col gap-8 tablet:flex-row tablet:items-end tablet:justify-between">
         <h1 className="font-display text-[16vw] font-semibold uppercase leading-[0.85] tracking-tight text-foreground tablet:text-[11vw] desktop:text-[9vw]">
           {headline.map((line, index) => (
-            <GlitchText key={line} text={line} delayMs={900 + index * 140} />
+            <GlitchText key={line} text={line} delayMs={950 + index * 190} />
           ))}
         </h1>
 
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: reducedMotion ? 0.2 : 1.5 }}
+          transition={{ duration: 0.5, delay: reducedMotion ? 0.2 : 1.9 }}
           className="max-w-[16rem] tablet:pb-4"
         >
           <p className="font-body text-[10px] uppercase tracking-[0.25em] text-muted">{role}</p>
