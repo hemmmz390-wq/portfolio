@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 import { useIsTouchDevice } from "@/lib/hooks/useIsTouchDevice";
@@ -19,7 +19,6 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
   const reducedMotion = usePrefersReducedMotion();
   const isTouch = useIsTouchDevice();
   const [pointerOffset, setPointerOffset] = useState({ x: 0, y: 0 });
-  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (reducedMotion || isTouch) return;
@@ -37,10 +36,7 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
   }, [reducedMotion, isTouch]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative flex min-h-screen items-end overflow-hidden px-6 pb-12 pt-28 tablet:px-10 tablet:pb-16"
-    >
+    <section className="relative flex min-h-screen items-end overflow-hidden px-6 pb-12 pt-28 tablet:px-10 tablet:pb-16">
       <div className="hero-reveal absolute inset-0">
         <motion.div
           animate={{ x: pointerOffset.x, y: pointerOffset.y }}
