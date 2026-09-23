@@ -6,6 +6,18 @@ vi.mock("next/font/google", () => ({
   Inter: () => ({ variable: "--font-inter", className: "font-body" }),
 }));
 
+class IntersectionObserverStub implements IntersectionObserver {
+  readonly root = null;
+  readonly rootMargin = "";
+  readonly thresholds: ReadonlyArray<number> = [];
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+  takeRecords = vi.fn(() => []);
+}
+
+vi.stubGlobal("IntersectionObserver", IntersectionObserverStub);
+
 beforeEach(() => {
   Object.defineProperty(window, "matchMedia", {
     writable: true,
