@@ -88,9 +88,16 @@ chrome --headless=new --disable-gpu --hide-scrollbars \
 
 then resized to 1600×1000 and converted to WebP with `sharp`.
 
-### Replacing the portrait
+### Replacing the portraits
 
-The hero and About portrait both read `public/images/hero.webp`. Replace that file to change both.
+Two separate portraits are used:
+
+| File | Used by |
+| --- | --- |
+| `public/images/hero.webp` | Homepage hero |
+| `public/images/about.webp` | About page |
+
+Replace either file to change that portrait. Both are cropped to suit their container (the hero is wide and anchored near the top; the About image is 3:4), so re-crop a replacement to a similar ratio or adjust the `object-position` class on the corresponding `<Image>`.
 
 ## Design System
 
