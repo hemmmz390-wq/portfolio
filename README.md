@@ -63,14 +63,30 @@ Shapes for all of these are defined in `lib/types.ts`.
 
 Append an entry to the `projects` array in `lib/content/projects.ts`. The `slug` becomes its URL (`/work/<slug>`), and the page is statically generated at build time.
 
-### Adding project images
+### Project images
 
-Project cover and hero images are `null` by default, which renders an intentional typographic placeholder tile instead of a broken image. To use real images:
+Each project's `coverImage` / `heroImage` points at a screenshot of the live site in `public/images/projects/`. To replace or add one:
 
 1. Put the file in `public/images/projects/`.
-2. Set `coverImage` and/or `heroImage` to its path, e.g. `"/images/projects/marginku-cover.jpg"`.
+2. Set `coverImage` and/or `heroImage` to its path, e.g. `"/images/projects/marginku-cover.webp"`.
+
+Setting either back to `null` is supported — the card falls back to a typographic placeholder tile rather than a broken image.
+
+`imageTreatment` controls the filter applied to a project's images (`normal`, `grayscale`, `highContrast`, `monochrome`); see `lib/imageTreatment.ts`. Cards render the treatment by default and reveal full color on hover.
 
 The `gallery` array works the same way and accepts `{ src, alt, caption? }` entries.
+
+#### Re-capturing screenshots
+
+The existing screenshots were captured with headless Chrome:
+
+```bash
+chrome --headless=new --disable-gpu --hide-scrollbars \
+  --virtual-time-budget=9000 --window-size=1440,900 \
+  --screenshot=out.png https://your-project-url
+```
+
+then resized to 1600×1000 and converted to WebP with `sharp`.
 
 ### Replacing the portrait
 
@@ -150,5 +166,4 @@ The site is a fully static Next.js build and deploys to Vercel with no extra con
 ## Current Limitations
 
 - **The contact form does not send anything.** It validates input and shows a success state, but there is no backend, no persistence, and no email. Wiring it up is planned for a later phase.
-- **No project screenshots yet.** All three projects render placeholder tiles until real images are added.
 - There is no CMS or admin area; content is edited in `lib/content/`.
