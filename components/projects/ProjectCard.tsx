@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Project } from "@/lib/types";
+import { imageTreatmentClass } from "@/lib/imageTreatment";
 
 interface ProjectCardProps {
   project: Project;
@@ -14,7 +15,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       data-cursor-label="VIEW PROJECT →"
       className="group block"
     >
-      <div className="relative aspect-4/5 w-full overflow-hidden border border-border">
+      <div className="relative aspect-4/3 w-full overflow-hidden border border-border">
         {project.coverImage ? (
           <Image
             src={project.coverImage}
@@ -22,7 +23,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
             fill
             priority={priority}
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover grayscale transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            className={`object-cover object-top transition duration-700 ease-out group-hover:scale-[1.04] group-hover:grayscale-0 ${imageTreatmentClass(project.imageTreatment)}`}
           />
         ) : (
           <div

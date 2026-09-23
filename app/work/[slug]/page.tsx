@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { projects, getProjectBySlug } from "@/lib/content/projects";
+import { imageTreatmentClass } from "@/lib/imageTreatment";
 
 export async function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -87,7 +88,7 @@ export default async function ProjectDetailPage(props: PageProps<"/work/[slug]">
               fill
               priority
               sizes="100vw"
-              className="object-cover grayscale"
+              className={`object-cover object-top ${imageTreatmentClass(project.imageTreatment)}`}
             />
           </div>
         ) : (
@@ -118,7 +119,7 @@ export default async function ProjectDetailPage(props: PageProps<"/work/[slug]">
                     alt={image.alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover grayscale"
+                    className={`object-cover ${imageTreatmentClass(project.imageTreatment)}`}
                   />
                 </div>
                 {image.caption && (

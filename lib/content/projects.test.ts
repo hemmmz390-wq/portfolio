@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { projects, getProjectBySlug } from "@/lib/content/projects";
 
 describe("projects content", () => {
@@ -15,10 +17,18 @@ describe("projects content", () => {
     expect(getProjectBySlug("does-not-exist")).toBeUndefined();
   });
 
-  it("every project has a description and no fabricated cover image", () => {
+  it("every project has a description", () => {
     for (const project of projects) {
       expect(project.description.length).toBeGreaterThan(0);
-      expect(project.coverImage).toBeNull();
+    }
+  });
+
+  it("every referenced image file actually exists in public/", () => {
+    for (const project of projects) {
+      for (const path of [project.coverImage, project.heroImage]) {
+        if (path === null) continue;
+        expect(existsSync(join(process.cwd(), "public", path))).toBe(true);
+      }
     }
   });
 

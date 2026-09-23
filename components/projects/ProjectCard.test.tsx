@@ -9,8 +9,7 @@ describe("ProjectCard", () => {
     expect(screen.getByText("Marginku")).toBeInTheDocument();
     expect(screen.getByText("Financial Tool / Web App")).toBeInTheDocument();
     expect(screen.getByText("2026")).toBeInTheDocument();
-    const numbers = screen.getAllByText("01");
-    expect(numbers.some((node) => !node.closest("[aria-hidden='true']"))).toBe(true);
+    expect(screen.getByText("01")).toBeInTheDocument();
   });
 
   it("links to the project detail page and labels the custom cursor", () => {
@@ -20,8 +19,15 @@ describe("ProjectCard", () => {
     expect(link).toHaveAttribute("data-cursor-label", "VIEW PROJECT →");
   });
 
-  it("renders a typographic placeholder when there is no cover image", () => {
+  it("renders the cover image when the project has one", () => {
     render(<ProjectCard project={projects[0]} />);
+    expect(screen.getByAltText("Marginku")).toBeInTheDocument();
+    expect(screen.queryByTestId("project-placeholder")).not.toBeInTheDocument();
+  });
+
+  it("falls back to a typographic placeholder when there is no cover image", () => {
+    render(<ProjectCard project={{ ...projects[0], coverImage: null }} />);
     expect(screen.getByTestId("project-placeholder")).toBeInTheDocument();
+    expect(screen.queryByAltText("Marginku")).not.toBeInTheDocument();
   });
 });
