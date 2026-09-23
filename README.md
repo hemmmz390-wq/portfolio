@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Elbert Alwi — Portfolio
+
+A dark, editorial, typography-driven personal portfolio for Elbert Alwi (Web Developer / Photographer / Content Creator).
+
+This repository currently contains **Phase 1**: the complete static frontend. The database, CMS, admin dashboard, authentication, image uploads, and transactional email are planned for later phases and are **not** implemented yet.
+
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org) (App Router) + React 19
+- TypeScript (strict)
+- Tailwind CSS v4 (CSS-first `@theme` configuration)
+- Framer Motion (all UI motion, including the glitch entrance)
+- Lenis (smooth scrolling)
+- React Hook Form + Zod (contact form validation)
+- Vitest + React Testing Library
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The site runs at http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+| `npm test` | Run the test suite once |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run lint` | Lint with ESLint |
+| `npm run format` | Format with Prettier |
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Only one is used in Phase 1, and it is optional in development:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# .env.local
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+It sets the canonical base URL for metadata, `sitemap.xml`, and `robots.txt`. Without it, those fall back to `http://localhost:3000`.
 
-## Deploy on Vercel
+## Editing Content
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All site content lives in typed data files under `lib/content/` — **no content is hardcoded in components**. To change what the site says, edit these files only:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| File | Contains |
+| --- | --- |
+| `lib/content/site.ts` | Name, role, email, social links, hero headline, intro copy |
+| `lib/content/projects.ts` | The project list and each project's copy and metadata |
+| `lib/content/process.ts` | The six process steps |
+| `lib/content/capabilities.ts` | Capabilities and the tools listed under each |
+
+Shapes for all of these are defined in `lib/types.ts`.
+
+### Adding a project
+
+Append an entry to the `projects` array in `lib/content/projects.ts`. The `slug` becomes its URL (`/work/<slug>`), and the page is statically generated at build time.
+
+### Adding project images
+
+Project cover and hero images are `null` by default, which renders an intentional typographic placeholder tile instead of a broken image. To use real images:
+
+1. Put the file in `public/images/projects/`.
+2. Set `coverImage` and/or `heroImage` to its path, e.g. `"/images/projects/marginku-cover.jpg"`.
+
+The `gallery` array works the same way and accepts `{ src, alt, caption? }` entries.
+
+### Replacing the portrait
+
+The hero and About portrait both read `public/images/hero.webp`. Replace that file to change both.
+
+## Design System
+
+Tailwind v4 is configured CSS-first. All design tokens live in the `@theme` block at the top of `app/globals.css`:
+
+```css
+@theme {
+  --color-background: #050505;
+  --color-foreground: #f2f2ee;
+  --color-muted: #a0a0a0;
+  --color-border: rgba(255, 255, 255, 0.15);
+
+  --font-display: var(--font-league-spartan), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+
+  --breakpoint-tablet: 768px;
+  --breakpoint-laptop: 1024px;
+  --breakpoint-desktop: 1440px;
+}
+```
+
+Changing a value there updates every `bg-background`, `text-muted`, `font-display`, `tablet:` utility, and so on across the site. Fonts are loaded with `next/font/google` in `app/layout.tsx`.
+
+## Motion & Accessibility
+
+Motion is built to degrade safely:
+
+- The glitch entrance (RGB channel split, scanline sweep, jitter), hero parallax, and the custom cursor are all disabled under `prefers-reduced-motion: reduce`.
+- The custom cursor also never renders on touch / coarse-pointer devices.
+- The hero portrait reveal is a CSS animation rather than a JS one, so it is never blank while JavaScript hydrates.
+
+`usePrefersReducedMotion()` and `useIsTouchDevice()` (in `lib/hooks/`) both wrap `useMediaQuery`, which uses `useSyncExternalStore` for hydration-safe subscriptions.
+
+To adjust motion timing, edit the keyframes and `.glitch-*` / `.hero-reveal` classes in `app/globals.css`, and the Framer Motion variants in the relevant component.
+
+## Project Structure
+
+```
+app/                  Routes (home, about, work, work/[slug], process, contact, 404, sitemap, robots)
+components/
+  layout/             Navbar, MobileMenu, Footer, PageTransition, LenisProvider
+  motion/             NoiseOverlay, CustomCursor
+  hero/               Hero, GlitchText
+  projects/           ProjectCard, ProjectGrid, ProjectIndex
+  capabilities/       Capabilities
+  process/            ProcessSection
+  typography/         SectionHeading
+  contact/            ContactForm
+lib/
+  types.ts            Shared content types
+  content/            All editable site content
+  hooks/              useMediaQuery, usePrefersReducedMotion, useIsTouchDevice
+public/images/        Static images (hero portrait)
+docs/superpowers/     Design spec and implementation plan
+```
+
+## Testing
+
+```bash
+npm test
+```
+
+Tests cover the content layer, media-query hooks, and component rendering/behavior (navigation, project cards, contact form validation and success state). Tests live next to the code they cover as `*.test.tsx`.
+
+## Deployment
+
+The site is a fully static Next.js build and deploys to Vercel with no extra configuration:
+
+1. Push the repository to GitHub.
+2. Import it in Vercel.
+3. Set `NEXT_PUBLIC_SITE_URL` to the production domain.
+
+## Current Limitations
+
+- **The contact form does not send anything.** It validates input and shows a success state, but there is no backend, no persistence, and no email. Wiring it up is planned for a later phase.
+- **No project screenshots yet.** All three projects render placeholder tiles until real images are added.
+- There is no CMS or admin area; content is edited in `lib/content/`.

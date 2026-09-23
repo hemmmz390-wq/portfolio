@@ -41,12 +41,7 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
       ref={sectionRef}
       className="relative flex min-h-screen items-end overflow-hidden px-6 pb-12 pt-28 tablet:px-10 tablet:pb-16"
     >
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: reducedMotion ? 0.3 : 0.8, delay: reducedMotion ? 0 : 0.5 }}
-        className="absolute inset-0"
-      >
+      <div className="hero-reveal absolute inset-0">
         <motion.div
           animate={{ x: pointerOffset.x, y: pointerOffset.y }}
           transition={{ type: "spring", damping: 40, stiffness: 90, mass: 1.2 }}
@@ -71,7 +66,7 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
             style={{ animationDelay: "500ms" }}
           />
         )}
-      </motion.div>
+      </div>
 
       <div className="relative z-10 flex w-full flex-col gap-8 tablet:flex-row tablet:items-end tablet:justify-between">
         <h1 className="font-display text-[16vw] font-semibold uppercase leading-[0.85] tracking-tight text-foreground tablet:text-[11vw] desktop:text-[9vw]">
