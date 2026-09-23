@@ -27,14 +27,20 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
         ) : (
           <div
             data-testid="project-placeholder"
-            className="flex h-full w-full flex-col justify-between bg-linear-to-br from-[#0b0b0b] to-[#161616] p-6 transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+            className="flex h-full w-full flex-col justify-between bg-linear-to-br from-[#0d0d0d] via-[#141414] to-[#080808] p-6 transition-transform duration-700 ease-out group-hover:scale-[1.02]"
           >
-            <span className="font-display text-7xl leading-none text-foreground/15">
+            <div className="flex justify-end">
+              <span className="h-1.5 w-1.5 bg-foreground/30" />
+            </div>
+
+            <span
+              aria-hidden="true"
+              className="font-display text-[7rem] leading-[0.8] tracking-tighter text-foreground/25 tablet:text-[9rem]"
+            >
               {project.number}
             </span>
-            <span className="font-body text-[10px] uppercase tracking-[0.25em] text-muted">
-              {project.category}
-            </span>
+
+            <div className="h-px w-full bg-border" />
           </div>
         )}
       </div>

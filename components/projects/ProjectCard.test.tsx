@@ -7,8 +7,10 @@ describe("ProjectCard", () => {
   it("renders the project number, title, category, and year", () => {
     render(<ProjectCard project={projects[0]} />);
     expect(screen.getByText("Marginku")).toBeInTheDocument();
-    expect(screen.getAllByText("Financial Tool / Web App").length).toBeGreaterThan(0);
+    expect(screen.getByText("Financial Tool / Web App")).toBeInTheDocument();
     expect(screen.getByText("2026")).toBeInTheDocument();
+    const numbers = screen.getAllByText("01");
+    expect(numbers.some((node) => !node.closest("[aria-hidden='true']"))).toBe(true);
   });
 
   it("links to the project detail page and labels the custom cursor", () => {
