@@ -20,12 +20,12 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 gap-12 tablet:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] tablet:gap-16">
           <div className="relative aspect-3/4 w-full overflow-hidden border border-border">
             <Image
-              src="/images/about.webp"
+              src="/images/about-seated.webp"
               alt={`${siteSettings.name} portrait`}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 45vw"
-              className="object-cover object-[center_20%] grayscale contrast-[1.15] brightness-[0.85]"
+              className="object-cover object-center grayscale contrast-[1.1] brightness-[0.92]"
             />
           </div>
 

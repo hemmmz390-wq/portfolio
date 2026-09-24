@@ -95,9 +95,11 @@ Two separate portraits are used:
 | File | Used by |
 | --- | --- |
 | `public/images/hero.webp` | Homepage hero |
-| `public/images/about.webp` | About page |
+| `public/images/about-seated.webp` | About page |
 
-Replace either file to change that portrait. Both are cropped to suit their container (the hero is wide and anchored near the top; the About image is 3:4), so re-crop a replacement to a similar ratio or adjust the `object-position` class on the corresponding `<Image>`.
+Replace either file to change that portrait. Both are cropped to suit their container (the hero is wide and anchored near the top; the About image is exactly 3:4), so re-crop a replacement to a similar ratio or adjust the `object-position` class on the corresponding `<Image>`.
+
+When swapping a portrait, give the new file a **new filename** and update the `src`. Browsers and CDNs cache these aggressively by URL, so overwriting a file in place will keep serving the old image.
 
 ## Design System
 
