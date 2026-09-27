@@ -11,7 +11,7 @@ function renderHero() {
       role="Web Developer / Photographer / Content Creator"
       subheadline={["TURNING IDEAS", "INTO INTERFACES."]}
       intro="Web developer, photographer, and content creator."
-      imageSrc="/images/hero-cutout.webp"
+      imageSrc="/images/hero-arms-color.webp"
       imageAlt="Elbert Alwi portrait"
     />
   );

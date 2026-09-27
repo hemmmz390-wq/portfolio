@@ -72,9 +72,9 @@ export function Hero({
         className="pointer-events-none absolute inset-3 border border-border tablet:inset-5"
       />
 
-      {/* A true cut-out, so the masthead can run behind the figure. The suit is
-          near-black on a near-black page, hence the lift and the soft glow that
-          separates the silhouette. Anchored to the section so the flat bottom
+      {/* A true cut-out, so the masthead can run behind the figure. Kept in
+          full colour — the only colour on an otherwise monochrome page, which
+          makes it the focal point. Anchored to the section so the flat bottom
           crop sits below the fold. */}
       <motion.div
         animate={{ x: pointerOffset.x, y: pointerOffset.y }}
@@ -86,13 +86,15 @@ export function Hero({
             aria-hidden="true"
             className="absolute inset-[-25%] bg-[radial-gradient(ellipse_at_50%_45%,rgba(255,255,255,0.10),transparent_62%)]"
           />
+          {/* The outfit is near-black (#22), so brightness is lifted to keep the
+              silhouette off the #050505 page without washing out skin tone. */}
           <Image
             src={imageSrc}
             alt={imageAlt}
             fill
             priority
-            sizes="(max-width: 768px) 45vh, 42vh"
-            className="relative object-contain object-bottom grayscale contrast-[1.08] brightness-[1.2]"
+            sizes="(max-width: 768px) 40vh, 42vh"
+            className="relative object-contain object-bottom brightness-[1.16] contrast-[1.04]"
           />
         </div>
       </motion.div>
@@ -114,7 +116,8 @@ export function Hero({
 
       {/* Masthead + portrait */}
       <div className="relative z-10 -mt-4 flex flex-1 items-center">
-        <div className="relative w-full px-2 tablet:px-4">
+        {/* Extra right padding keeps the last letter clear of the scroll rail. */}
+        <div className="relative w-full px-2 tablet:pl-4 tablet:pr-12">
           <p className="mb-2 font-cjk text-sm tracking-[0.55em] text-foreground/70 tablet:text-xl">
             {cjkName}
           </p>
