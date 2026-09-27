@@ -4,8 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { animate } from "framer-motion";
 import { markIntroDone } from "@/lib/hooks/useIntroDone";
 
-export const INTRO_SESSION_KEY = "intro-played";
-
 const COUNT_DURATION = 1.25;
 const WIPE_DELAY_MS = 1650;
 const WIPE_DURATION_MS = 700;
@@ -23,8 +21,8 @@ export function IntroOverlay({ name, cjkName }: IntroOverlayProps) {
   const counterRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    // Already played this session, or reduced motion: the pre-paint script set
-    // the skip attribute and CSS hides the overlay, so nothing needs to run.
+    // Reduced motion: the pre-paint script set the skip attribute and CSS
+    // hides the overlay, so nothing needs to run.
     if (document.documentElement.hasAttribute("data-intro-skip")) return;
 
     const { body } = document;
@@ -45,11 +43,6 @@ export function IntroOverlay({ name, cjkName }: IntroOverlayProps) {
     const endTimer = window.setTimeout(() => {
       setDismissed(true);
       body.style.overflow = previousOverflow;
-      try {
-        sessionStorage.setItem(INTRO_SESSION_KEY, "1");
-      } catch {
-        // Private mode can reject storage; the intro simply replays next load.
-      }
       markIntroDone();
     }, WIPE_DELAY_MS + WIPE_DURATION_MS);
 

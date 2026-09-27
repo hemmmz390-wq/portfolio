@@ -30,9 +30,9 @@ const notoSansTC = localFont({
   display: "swap",
 });
 
-// Runs before first paint so a session that already saw the intro never
-// flashes the overlay, and the hero entrance isn't left paused.
-const introGateScript = `(function(){try{var d=document.documentElement;var seen=sessionStorage.getItem('intro-played');var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(seen||reduced){d.setAttribute('data-intro-skip','');d.setAttribute('data-intro-done','');}}catch(e){d.setAttribute('data-intro-skip','');d.setAttribute('data-intro-done','');}})();`;
+// Runs before first paint: reduced-motion visitors skip the overlay without a
+// flash, and the hero entrance is released instead of being left paused.
+const introGateScript = `(function(){var d=document.documentElement;try{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){d.setAttribute('data-intro-skip','');d.setAttribute('data-intro-done','');}}catch(e){d.setAttribute('data-intro-skip','');d.setAttribute('data-intro-done','');}})();`;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
