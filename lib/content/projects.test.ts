@@ -4,8 +4,8 @@ import { join } from "node:path";
 import { projects, getProjectBySlug } from "@/lib/content/projects";
 
 describe("projects content", () => {
-  it("has exactly 3 real projects", () => {
-    expect(projects).toHaveLength(3);
+  it("has exactly 4 real projects", () => {
+    expect(projects).toHaveLength(4);
   });
 
   it("finds a project by slug", () => {

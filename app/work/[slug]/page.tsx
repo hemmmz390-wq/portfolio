@@ -73,7 +73,7 @@ export default async function ProjectDetailPage(props: PageProps<"/work/[slug]">
                   data-cursor-label="OPEN SITE →"
                   className="border-b border-border pb-0.5 font-body text-sm text-foreground transition-colors hover:border-foreground"
                 >
-                  Visit site →
+                  {project.liveLabel ?? "Visit site"} →
                 </a>
               </dd>
             </div>

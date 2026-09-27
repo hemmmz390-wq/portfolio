@@ -35,6 +35,8 @@ export interface Project {
   year: string;
   role: string;
   liveUrl: string | null;
+  /** Link text for `liveUrl`; defaults to "Visit site" when omitted. */
+  liveLabel?: string;
   shortDescription: string;
   description: string;
   coverImage: string | null;

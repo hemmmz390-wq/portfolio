@@ -55,6 +55,25 @@ export const projects: Project[] = [
     gallery: [],
     featured: true,
   },
+  {
+    slug: "neduh-gas",
+    number: "04",
+    title: "Neduh Gas",
+    category: "Content Creation / Social Video",
+    year: "2026",
+    role: "Content Creator & Editor — four-person team",
+    liveUrl: "https://www.tiktok.com/@neduh_gas",
+    liveLabel: "View on TikTok",
+    shortDescription:
+      "A TikTok channel about hidden-gem places, local businesses, and culture around Bali.",
+    description:
+      "Neduh Gas is a TikTok channel built around hidden-gem places in Bali — trips out to the spots most visitors never reach, filmed as travel and hangout content. It isn't only about the places: the channel also puts local UMKM businesses and Balinese culture in front of an audience, carried by storytelling and vlogs rather than plain recommendations. Four people run it — Elbert on content creation and editing, Amara on social media, Aurel on content strategy, and Artha as a second content creator. The first shoot was in March 2026, at the Ogoh-ogoh parade on the eve of Nyepi.",
+    coverImage: null,
+    heroImage: null,
+    imageTreatment: "normal",
+    gallery: [],
+    featured: true,
+  },
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {
