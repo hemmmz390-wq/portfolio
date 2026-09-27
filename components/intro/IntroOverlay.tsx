@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { animate } from "framer-motion";
 import { markIntroDone } from "@/lib/hooks/useIntroDone";
 
-const COUNT_DURATION = 1.25;
-const WIPE_DELAY_MS = 1650;
-const WIPE_DURATION_MS = 700;
+const COUNT_DURATION = 1.5;
+const FADE_DELAY_MS = 1750;
+const FADE_DURATION_MS = 650;
 
 interface IntroOverlayProps {
   name: string;
@@ -14,10 +14,8 @@ interface IntroOverlayProps {
 }
 
 export function IntroOverlay({ name, cjkName }: IntroOverlayProps) {
-  // The inline script in the document head has already decided whether the
-  // intro should run, so trust its attribute rather than re-deriving it.
   const [dismissed, setDismissed] = useState(false);
-  const [wiping, setWiping] = useState(false);
+  const [leaving, setLeaving] = useState(false);
   const counterRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -31,24 +29,24 @@ export function IntroOverlay({ name, cjkName }: IntroOverlayProps) {
 
     const stopCount = animate(0, 100, {
       duration: COUNT_DURATION,
-      ease: "easeInOut",
+      ease: [0.4, 0, 0.2, 1],
       onUpdate: (value) => {
         if (counterRef.current) {
-          counterRef.current.textContent = String(Math.round(value)).padStart(3, "0");
+          counterRef.current.textContent = String(Math.round(value));
         }
       },
     });
 
-    const wipeTimer = window.setTimeout(() => setWiping(true), WIPE_DELAY_MS);
+    const fadeTimer = window.setTimeout(() => setLeaving(true), FADE_DELAY_MS);
     const endTimer = window.setTimeout(() => {
       setDismissed(true);
       body.style.overflow = previousOverflow;
       markIntroDone();
-    }, WIPE_DELAY_MS + WIPE_DURATION_MS);
+    }, FADE_DELAY_MS + FADE_DURATION_MS);
 
     return () => {
       stopCount.stop();
-      window.clearTimeout(wipeTimer);
+      window.clearTimeout(fadeTimer);
       window.clearTimeout(endTimer);
       body.style.overflow = previousOverflow;
     };
@@ -59,44 +57,24 @@ export function IntroOverlay({ name, cjkName }: IntroOverlayProps) {
   return (
     <div
       aria-hidden="true"
-      className={`intro-overlay fixed inset-0 z-[10001] flex flex-col justify-between bg-background px-6 py-8 tablet:px-10 tablet:py-10 ${
-        wiping ? "intro-overlay-out" : ""
+      className={`intro-overlay fixed inset-0 z-[10001] flex items-center justify-center bg-background px-6 ${
+        leaving ? "intro-overlay-out" : ""
       }`}
     >
-      <div className="flex items-start justify-between">
-        <span className="font-body text-[10px] uppercase tracking-[0.3em] text-muted">
-          {name}
-        </span>
-        <span className="font-body text-[10px] uppercase tracking-[0.3em] text-muted">
-          Portfolio — 2026
-        </span>
-      </div>
-
-      <div className="relative">
-        <span className="intro-name relative block font-cjk text-[22vw] leading-none tracking-[0.05em] text-foreground tablet:text-[15vw]">
+      <div className="intro-block inline-flex flex-col">
+        {/* Letter-spacing adds a trailing gap after the last glyph; the negative
+            margin pulls it back so the block still optically centres. */}
+        <span className="-me-[0.3em] whitespace-nowrap text-center font-cjk text-[15vw] leading-none tracking-[0.3em] text-foreground/90 tablet:text-[7vw]">
           {cjkName}
-          <span
-            aria-hidden="true"
-            className="intro-ghost-a absolute inset-0 block text-[#ff2bd6] mix-blend-screen"
-          >
-            {cjkName}
-          </span>
-          <span
-            aria-hidden="true"
-            className="intro-ghost-b absolute inset-0 block text-[#00e5ff] mix-blend-screen"
-          >
-            {cjkName}
-          </span>
         </span>
-      </div>
 
-      <div className="flex items-end justify-between gap-6">
-        <div className="intro-rule h-px flex-1 bg-border" />
-        <span
-          ref={counterRef}
-          className="font-display text-4xl leading-none tabular-nums text-foreground tablet:text-6xl"
-        >
-          000
+        <span className="intro-rule mt-5 h-px w-full bg-foreground/25" />
+
+        <span className="mt-3 flex items-baseline justify-between gap-8 font-body text-[9px] uppercase tracking-[0.3em] text-muted">
+          {name}
+          <span ref={counterRef} className="tabular-nums">
+            0
+          </span>
         </span>
       </div>
     </div>

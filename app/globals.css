@@ -268,76 +268,14 @@ body {
 
 /* --- Opening overlay ------------------------------------------------- */
 
-@keyframes intro-name-in {
-  0% {
+@keyframes intro-block-in {
+  from {
     opacity: 0;
-    transform: translate3d(0, 14px, 0);
-    clip-path: inset(0 0 100% 0);
+    transform: translate3d(0, 10px, 0);
   }
-  45% {
-    opacity: 1;
-    clip-path: inset(0 0 0 0);
-  }
-  100% {
+  to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes intro-ghost-a {
-  0%,
-  100% {
-    opacity: 0;
-    transform: translate3d(0, 0, 0);
-  }
-  14% {
-    opacity: 0.85;
-    transform: translate3d(-10px, 2px, 0);
-    clip-path: inset(14% 0 58% 0);
-  }
-  32% {
-    opacity: 0.6;
-    transform: translate3d(7px, -2px, 0);
-    clip-path: inset(58% 0 20% 0);
-  }
-  56% {
-    opacity: 0.7;
-    transform: translate3d(-6px, 1px, 0);
-    clip-path: inset(32% 0 40% 0);
-  }
-  78% {
-    opacity: 0.3;
-    transform: translate3d(3px, 0, 0);
-    clip-path: inset(70% 0 10% 0);
-  }
-}
-
-@keyframes intro-ghost-b {
-  0%,
-  100% {
-    opacity: 0;
-    transform: translate3d(0, 0, 0);
-  }
-  20% {
-    opacity: 0.75;
-    transform: translate3d(9px, -2px, 0);
-    clip-path: inset(62% 0 18% 0);
-  }
-  40% {
-    opacity: 0.6;
-    transform: translate3d(-8px, 2px, 0);
-    clip-path: inset(10% 0 66% 0);
-  }
-  64% {
-    opacity: 0.65;
-    transform: translate3d(6px, 0, 0);
-    clip-path: inset(40% 0 34% 0);
-  }
-  86% {
-    opacity: 0.25;
-    transform: translate3d(-3px, 0, 0);
-    clip-path: inset(24% 0 56% 0);
   }
 }
 
@@ -350,34 +288,26 @@ body {
   }
 }
 
-@keyframes intro-wipe-out {
+@keyframes intro-fade-out {
   from {
-    clip-path: inset(0 0 0 0);
+    opacity: 1;
   }
   to {
-    clip-path: inset(0 0 100% 0);
+    opacity: 0;
   }
 }
 
-.intro-name {
-  animation: intro-name-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms both;
-}
-
-.intro-ghost-a {
-  animation: intro-ghost-a 900ms steps(2, end) 160ms both;
-}
-
-.intro-ghost-b {
-  animation: intro-ghost-b 900ms steps(2, end) 160ms both;
+.intro-block {
+  animation: intro-block-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) 100ms both;
 }
 
 .intro-rule {
   transform-origin: left center;
-  animation: intro-rule-grow 1250ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: intro-rule-grow 1500ms cubic-bezier(0.4, 0, 0.2, 1) 100ms both;
 }
 
 .intro-overlay-out {
-  animation: intro-wipe-out 700ms cubic-bezier(0.7, 0, 0.3, 1) both;
+  animation: intro-fade-out 650ms ease-out both;
 }
 
 /* The hero entrance is held until the overlay clears, so its glitch isn't
@@ -502,9 +432,7 @@ html[data-intro-skip] .intro-overlay {
   .glitch-slice-b,
   .glitch-scanline,
   .hero-reveal,
-  .intro-name,
-  .intro-ghost-a,
-  .intro-ghost-b,
+  .intro-block,
   .intro-rule,
   .intro-overlay-out {
     animation: none !important;
