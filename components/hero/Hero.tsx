@@ -1,10 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
-import { useIsTouchDevice } from "@/lib/hooks/useIsTouchDevice";
 import { useIntroDone } from "@/lib/hooks/useIntroDone";
 
 interface HeroProps {
@@ -43,24 +41,7 @@ export function Hero({
   imageAlt,
 }: HeroProps) {
   const reducedMotion = usePrefersReducedMotion();
-  const isTouch = useIsTouchDevice();
   const introDone = useIntroDone();
-  const [pointerOffset, setPointerOffset] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    if (reducedMotion || isTouch) return;
-
-    const handleMove = (event: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      setPointerOffset({
-        x: (event.clientX / innerWidth - 0.5) * 16,
-        y: (event.clientY / innerHeight - 0.5) * 16,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, [reducedMotion, isTouch]);
 
   const corner = "font-body text-[9px] uppercase leading-relaxed tracking-[0.25em] text-muted";
 
@@ -76,11 +57,7 @@ export function Hero({
           full colour — the only colour on an otherwise monochrome page, which
           makes it the focal point. Anchored to the section so the flat bottom
           crop sits below the fold. */}
-      <motion.div
-        animate={{ x: pointerOffset.x, y: pointerOffset.y }}
-        transition={{ type: "spring", damping: 40, stiffness: 90, mass: 1.2 }}
-        className="hero-reveal pointer-events-none absolute bottom-0 left-1/2 z-[15] h-[52vh] -translate-x-1/2 tablet:h-[78vh]"
-      >
+      <div className="hero-reveal pointer-events-none absolute bottom-0 left-1/2 z-[15] h-[52vh] -translate-x-1/2 tablet:h-[78vh]">
         <div className="relative aspect-[653/1220] h-full">
           <div
             aria-hidden="true"
@@ -97,7 +74,7 @@ export function Hero({
             className="relative object-contain object-bottom brightness-[1.16] contrast-[1.04]"
           />
         </div>
-      </motion.div>
+      </div>
 
       <div className="relative z-20 flex items-start justify-between gap-6 px-2 tablet:px-4">
         <div className="max-w-[15rem]">
