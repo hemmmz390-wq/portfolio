@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { League_Spartan, Inter } from "next/font/google";
+import { League_Spartan, Inter, Bodoni_Moda } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { IntroOverlay } from "@/components/intro/IntroOverlay";
@@ -19,6 +19,14 @@ const leagueSpartan = League_Spartan({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+// High-contrast Didone for the hero masthead; its italic doubles as the
+// signature line, which avoids pulling in a separate script family.
+const bodoniModa = Bodoni_Moda({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-bodoni",
 });
 
 // Subset of Noto Sans TC containing only 莊秉洋 (1.3 KB) — a full CJK face
@@ -62,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${leagueSpartan.variable} ${inter.variable} ${notoSansTC.variable}`}
+      className={`${leagueSpartan.variable} ${inter.variable} ${notoSansTC.variable} ${bodoniModa.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: introGateScript }} />

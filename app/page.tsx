@@ -19,11 +19,14 @@ export default function HomePage() {
     <PageTransition>
       <main>
         <Hero
-          headline={siteSettings.heroHeadline}
+          displayName="ELBERT"
+          signature="Alwi"
+          cjkName="莊秉洋"
+          role={siteSettings.role}
           subheadline={siteSettings.heroSubheadline}
+          intro="Web developer, photographer, and content creator building clean digital products."
           imageSrc="/images/hero.webp"
           imageAlt={`${siteSettings.name} portrait`}
-          role={siteSettings.role}
         />
 
         <section className="px-6 py-28 tablet:px-10 tablet:py-40">

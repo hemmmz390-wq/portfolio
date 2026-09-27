@@ -9,6 +9,7 @@
   --font-display: var(--font-league-spartan), sans-serif;
   --font-body: var(--font-inter), sans-serif;
   --font-cjk: var(--font-noto-tc), sans-serif;
+  --font-serif: var(--font-bodoni), serif;
 
   --breakpoint-tablet: 768px;
   --breakpoint-laptop: 1024px;
@@ -392,6 +393,22 @@ html[data-intro-skip] .intro-overlay {
 
 .glitch-layer {
   animation: glitch-shift 880ms steps(2, end) 1 both;
+}
+
+/* Feathers the portrait on every edge so its dark studio backdrop dissolves
+   into the page instead of showing as a rectangle over the masthead. */
+.hero-portrait-mask {
+  --portrait-feather: radial-gradient(
+      ellipse 56% 48% at 50% 34%,
+      #000 28%,
+      rgba(0, 0, 0, 0.6) 55%,
+      transparent 78%
+    ),
+    linear-gradient(to bottom, transparent 0%, #000 18%, #000 62%, transparent 92%);
+  -webkit-mask-image: var(--portrait-feather);
+  mask-image: var(--portrait-feather);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 /* CSS-driven so the hero portrait is never blank while JS hydrates. */
