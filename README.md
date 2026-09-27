@@ -94,8 +94,11 @@ Two separate portraits are used:
 
 | File | Used by |
 | --- | --- |
-| `public/images/hero.webp` | Homepage hero |
+| `public/images/hero-cutout.webp` | Homepage hero — **transparent cut-out**, so the masthead type can run behind the figure |
+| `public/images/hero.webp` | Open Graph / Twitter card image only |
 | `public/images/about-seated.webp` | About page |
+
+The hero needs a background-removed image with a real alpha channel; a photo with its background intact would sit as an opaque rectangle across the masthead. The social card deliberately uses the *non*-cut-out photo, since a transparent PNG renders against whatever background each platform picks.
 
 Replace either file to change that portrait. Both are cropped to suit their container (the hero is wide and anchored near the top; the About image is exactly 3:4), so re-crop a replacement to a similar ratio or adjust the `object-position` class on the corresponding `<Image>`.
 

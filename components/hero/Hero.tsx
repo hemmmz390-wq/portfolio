@@ -72,6 +72,31 @@ export function Hero({
         className="pointer-events-none absolute inset-3 border border-border tablet:inset-5"
       />
 
+      {/* A true cut-out, so the masthead can run behind the figure. The suit is
+          near-black on a near-black page, hence the lift and the soft glow that
+          separates the silhouette. Anchored to the section so the flat bottom
+          crop sits below the fold. */}
+      <motion.div
+        animate={{ x: pointerOffset.x, y: pointerOffset.y }}
+        transition={{ type: "spring", damping: 40, stiffness: 90, mass: 1.2 }}
+        className="hero-reveal pointer-events-none absolute bottom-0 left-1/2 z-[15] h-[52vh] -translate-x-1/2 tablet:h-[78vh]"
+      >
+        <div className="relative aspect-[653/1220] h-full">
+          <div
+            aria-hidden="true"
+            className="absolute inset-[-25%] bg-[radial-gradient(ellipse_at_50%_45%,rgba(255,255,255,0.10),transparent_62%)]"
+          />
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            priority
+            sizes="(max-width: 768px) 45vh, 42vh"
+            className="relative object-contain object-bottom grayscale contrast-[1.08] brightness-[1.2]"
+          />
+        </div>
+      </motion.div>
+
       <div className="relative z-20 flex items-start justify-between gap-6 px-2 tablet:px-4">
         <div className="max-w-[15rem]">
           <p className="font-display text-xs uppercase tracking-[0.3em] text-foreground">
@@ -113,24 +138,6 @@ export function Hero({
             {signature}
           </p>
 
-          {/* Feathered so the portrait's near-black studio backdrop melts into
-              the page and the masthead appears to run behind the subject. */}
-          <motion.div
-            animate={{ x: pointerOffset.x, y: pointerOffset.y }}
-            transition={{ type: "spring", damping: 40, stiffness: 90, mass: 1.2 }}
-            className="hero-reveal pointer-events-none absolute inset-x-0 bottom-[-42%] top-[-118%] z-[5] mx-auto w-[74vw] tablet:w-[30vw]"
-          >
-            <div className="hero-portrait-mask relative h-full w-full">
-              <Image
-                src={imageSrc}
-                alt={imageAlt}
-                fill
-                priority
-                sizes="(max-width: 768px) 74vw, 30vw"
-                className="object-cover object-[center_18%] grayscale contrast-[1.3] brightness-[0.62]"
-              />
-            </div>
-          </motion.div>
         </div>
       </div>
 

@@ -25,7 +25,7 @@ export default function HomePage() {
           role={siteSettings.role}
           subheadline={siteSettings.heroSubheadline}
           intro="Web developer, photographer, and content creator building clean digital products."
-          imageSrc="/images/hero.webp"
+          imageSrc="/images/hero-cutout.webp"
           imageAlt={`${siteSettings.name} portrait`}
         />
 
