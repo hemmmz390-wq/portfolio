@@ -37,234 +37,49 @@ body {
   outline-offset: 4px;
 }
 
-@keyframes glitch-shift {
-  0% {
+/* --- Hero entrance --------------------------------------------------- */
+
+@keyframes hero-slide-up {
+  from {
+    transform: translate3d(0, 115%, 0);
+  }
+  to {
     transform: translate3d(0, 0, 0);
-    clip-path: inset(0 0 0 0);
-  }
-  12% {
-    transform: translate3d(-6px, 2px, 0);
-    clip-path: inset(18% 0 46% 0);
-  }
-  24% {
-    transform: translate3d(5px, -3px, 0);
-    clip-path: inset(62% 0 12% 0);
-  }
-  36% {
-    transform: translate3d(-3px, 1px, 0);
-    clip-path: inset(34% 0 38% 0);
-  }
-  48% {
-    transform: translate3d(4px, 0, 0);
-    clip-path: inset(8% 0 72% 0);
-  }
-  62% {
-    transform: translate3d(-2px, -1px, 0);
-    clip-path: inset(52% 0 26% 0);
-  }
-  78% {
-    transform: translate3d(1px, 1px, 0);
-    clip-path: inset(74% 0 8% 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-    clip-path: inset(0 0 0 0);
   }
 }
 
-/* Each ghost carries its own offset AND flicker in one animation — a separate
-   opacity animation would be overridden by this one's transform. */
-@keyframes glitch-ghost-a {
-  0% {
-    transform: translate3d(-9px, 0, 0);
-    clip-path: inset(0 0 0 0);
-    opacity: 0;
-  }
-  10% {
-    transform: translate3d(-12px, -3px, 0);
-    clip-path: inset(10% 0 58% 0);
-    opacity: 0.95;
-  }
-  24% {
-    transform: translate3d(7px, 3px, 0);
-    clip-path: inset(62% 0 14% 0);
-    opacity: 0.8;
-  }
-  38% {
-    transform: translate3d(-8px, 1px, 0);
-    clip-path: inset(28% 0 42% 0);
-    opacity: 0.9;
-  }
-  52% {
-    transform: translate3d(5px, -2px, 0);
-    clip-path: inset(4% 0 74% 0);
-    opacity: 0.65;
-  }
-  68% {
-    transform: translate3d(-4px, 0, 0);
-    clip-path: inset(46% 0 30% 0);
-    opacity: 0.75;
-  }
-  84% {
-    transform: translate3d(3px, 1px, 0);
-    clip-path: inset(72% 0 8% 0);
-    opacity: 0.4;
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-    clip-path: inset(0 0 0 0);
-    opacity: 0;
-  }
-}
-
-@keyframes glitch-ghost-b {
-  0% {
-    transform: translate3d(9px, 0, 0);
-    clip-path: inset(0 0 0 0);
-    opacity: 0;
-  }
-  10% {
-    transform: translate3d(11px, 2px, 0);
-    clip-path: inset(56% 0 16% 0);
-    opacity: 0.9;
-  }
-  26% {
-    transform: translate3d(-8px, -3px, 0);
-    clip-path: inset(8% 0 66% 0);
-    opacity: 0.75;
-  }
-  42% {
-    transform: translate3d(9px, 1px, 0);
-    clip-path: inset(38% 0 34% 0);
-    opacity: 0.85;
-  }
-  58% {
-    transform: translate3d(-5px, 2px, 0);
-    clip-path: inset(70% 0 6% 0);
-    opacity: 0.6;
-  }
-  74% {
-    transform: translate3d(4px, 0, 0);
-    clip-path: inset(22% 0 52% 0);
-    opacity: 0.7;
-  }
-  88% {
-    transform: translate3d(-2px, -1px, 0);
-    clip-path: inset(60% 0 22% 0);
-    opacity: 0.35;
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-    clip-path: inset(0 0 0 0);
-    opacity: 0;
-  }
-}
-
-@keyframes glitch-ghost-c {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 0;
-  }
-  16% {
-    transform: translate3d(4px, -4px, 0);
-    clip-path: inset(44% 0 40% 0);
-    opacity: 0.7;
-  }
-  34% {
-    transform: translate3d(-6px, 3px, 0);
-    clip-path: inset(16% 0 68% 0);
-    opacity: 0.5;
-  }
-  62% {
-    transform: translate3d(5px, 2px, 0);
-    clip-path: inset(66% 0 18% 0);
-    opacity: 0.55;
-  }
-  80% {
-    transform: translate3d(-2px, 0, 0);
-    clip-path: inset(34% 0 48% 0);
-    opacity: 0.3;
-  }
-}
-
-/* Colored slices that tear across the hero portrait during the entrance. */
-@keyframes glitch-slice-a {
-  0%,
-  100% {
-    opacity: 0;
-    clip-path: inset(50% 0 50% 0);
-    transform: translate3d(0, 0, 0);
-  }
-  12% {
-    opacity: 0.75;
-    clip-path: inset(18% 0 74% 0);
-    transform: translate3d(-4%, 0, 0);
-  }
-  30% {
-    opacity: 0.5;
-    clip-path: inset(62% 0 30% 0);
-    transform: translate3d(3%, 0, 0);
-  }
-  48% {
-    opacity: 0.65;
-    clip-path: inset(38% 0 55% 0);
-    transform: translate3d(-2%, 0, 0);
-  }
-  70% {
-    opacity: 0.3;
-    clip-path: inset(78% 0 14% 0);
-    transform: translate3d(2%, 0, 0);
-  }
-}
-
-@keyframes glitch-slice-b {
-  0%,
-  100% {
-    opacity: 0;
-    clip-path: inset(50% 0 50% 0);
-    transform: translate3d(0, 0, 0);
-  }
-  18% {
-    opacity: 0.6;
-    clip-path: inset(70% 0 22% 0);
-    transform: translate3d(5%, 0, 0);
-  }
-  36% {
-    opacity: 0.7;
-    clip-path: inset(24% 0 66% 0);
-    transform: translate3d(-4%, 0, 0);
-  }
-  58% {
-    opacity: 0.45;
-    clip-path: inset(50% 0 42% 0);
-    transform: translate3d(3%, 0, 0);
-  }
-  78% {
-    opacity: 0.25;
-    clip-path: inset(10% 0 84% 0);
-    transform: translate3d(-2%, 0, 0);
-  }
-}
-
-@keyframes scanline-sweep {
-  0% {
-    transform: translateY(-100%);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-}
-
-@keyframes hero-reveal {
+@keyframes hero-rise {
   from {
     opacity: 0;
+    transform: translate3d(0, 28px, 0);
   }
   to {
     opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
+}
+
+@keyframes hero-portrait-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-slide-up {
+  animation: hero-slide-up 1000ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-rise {
+  animation: hero-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-portrait-rise {
+  animation: hero-portrait-rise 1200ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* --- Opening overlay ------------------------------------------------- */
@@ -311,16 +126,12 @@ body {
   animation: intro-fade-out 650ms ease-out both;
 }
 
-/* The hero entrance is held until the overlay clears, so its glitch isn't
-   spent behind an opaque screen. */
-html:not([data-intro-done]) .glitch-layer,
-html:not([data-intro-done]) .glitch-ghost-a,
-html:not([data-intro-done]) .glitch-ghost-b,
-html:not([data-intro-done]) .glitch-ghost-c,
-html:not([data-intro-done]) .glitch-slice-a,
-html:not([data-intro-done]) .glitch-slice-b,
-html:not([data-intro-done]) .glitch-scanline,
-html:not([data-intro-done]) .hero-reveal {
+/* The hero entrance is held until the overlay clears, so it plays in view
+   rather than behind an opaque screen. Paused animations hold their delay too,
+   so each element's stagger still counts from the moment the overlay lifts. */
+html:not([data-intro-done]) .hero-slide-up,
+html:not([data-intro-done]) .hero-rise,
+html:not([data-intro-done]) .hero-portrait-rise {
   animation-play-state: paused;
 }
 
@@ -391,61 +202,14 @@ html[data-intro-skip] .intro-overlay {
   animation: bg-grid-pan 24s linear infinite;
 }
 
-.glitch-layer {
-  animation: glitch-shift 880ms steps(2, end) 1 both;
-}
-
-/* CSS-driven so the hero portrait is never blank while JS hydrates. */
-.hero-reveal {
-  animation: hero-reveal 800ms ease-out 400ms both;
-}
-
-.glitch-ghost-a {
-  animation: glitch-ghost-a 1020ms steps(2, end) 1 both;
-}
-
-.glitch-ghost-b {
-  animation: glitch-ghost-b 1020ms steps(2, end) 1 both;
-}
-
-.glitch-ghost-c {
-  animation: glitch-ghost-c 1020ms steps(2, end) 1 both;
-}
-
-.glitch-slice-a {
-  animation: glitch-slice-a 1100ms steps(3, end) 1 both;
-}
-
-.glitch-slice-b {
-  animation: glitch-slice-b 1100ms steps(3, end) 1 both;
-}
-
-.glitch-scanline {
-  animation: scanline-sweep 1000ms ease-out 1 both;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .glitch-layer,
-  .glitch-ghost-a,
-  .glitch-ghost-b,
-  .glitch-ghost-c,
-  .glitch-slice-a,
-  .glitch-slice-b,
-  .glitch-scanline,
-  .hero-reveal,
+  .hero-slide-up,
+  .hero-rise,
+  .hero-portrait-rise,
   .intro-block,
   .intro-rule,
   .intro-overlay-out {
     animation: none !important;
-  }
-
-  .glitch-ghost-a,
-  .glitch-ghost-b,
-  .glitch-ghost-c,
-  .glitch-slice-a,
-  .glitch-slice-b,
-  .glitch-scanline {
-    display: none !important;
   }
 
   /* Keep the ambient field as a static wash rather than removing it. */

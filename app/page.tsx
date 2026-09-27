@@ -90,7 +90,7 @@ export default function HomePage() {
           <p className="mb-8 font-body text-[10px] uppercase tracking-[0.3em] text-muted">
             (08) — Contact
           </p>
-          <h2 className="font-display text-5xl uppercase leading-[0.9] tracking-tight text-foreground tablet:text-8xl">
+          <h2 className="font-display text-[clamp(2.25rem,14vw,3rem)] uppercase leading-[0.9] tracking-tight text-foreground tablet:text-8xl">
             Let&rsquo;s create
             <br />
             something

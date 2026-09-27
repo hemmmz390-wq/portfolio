@@ -130,13 +130,14 @@ Changing a value there updates every `bg-background`, `text-muted`, `font-displa
 
 Motion is built to degrade safely:
 
-- The glitch entrance (RGB channel split, scanline sweep, jitter), hero parallax, and the custom cursor are all disabled under `prefers-reduced-motion: reduce`.
-- The custom cursor also never renders on touch / coarse-pointer devices.
-- The hero portrait reveal is a CSS animation rather than a JS one, so it is never blank while JavaScript hydrates.
+- **Opening overlay:** plays on every full page load (not on client-side navigation between pages), then fades out. Skipped entirely under `prefers-reduced-motion: reduce`.
+- **Hero entrance:** each masthead letter slides up out of its own clip mask in sequence, the portrait rises into place, and the corner text follows. It is pure CSS, so the hero ships no client-side JavaScript, and it is held with `animation-play-state: paused` until the overlay sets `data-intro-done` on `<html>` — otherwise it would play out behind the overlay.
+- The custom cursor is disabled under reduced motion and never renders on touch / coarse-pointer devices.
+- Under reduced motion every entrance renders in its final state immediately, and the ambient background holds still rather than disappearing.
 
 `usePrefersReducedMotion()` and `useIsTouchDevice()` (in `lib/hooks/`) both wrap `useMediaQuery`, which uses `useSyncExternalStore` for hydration-safe subscriptions.
 
-To adjust motion timing, edit the keyframes and `.glitch-*` / `.hero-reveal` classes in `app/globals.css`, and the Framer Motion variants in the relevant component.
+To adjust the hero timing, edit the `.hero-slide-up` / `.hero-rise` / `.hero-portrait-rise` keyframes in `app/globals.css` for duration and easing, and the `delay()` values in `components/hero/Hero.tsx` for the stagger.
 
 ## Project Structure
 
@@ -144,8 +145,9 @@ To adjust motion timing, edit the keyframes and `.glitch-*` / `.hero-reveal` cla
 app/                  Routes (home, about, work, work/[slug], process, contact, 404, sitemap, robots)
 components/
   layout/             Navbar, MobileMenu, Footer, PageTransition, LenisProvider
-  motion/             NoiseOverlay, CustomCursor
-  hero/               Hero, GlitchText
+  motion/             NoiseOverlay, CustomCursor, AnimatedBackground
+  intro/              IntroOverlay
+  hero/               Hero
   projects/           ProjectCard, ProjectGrid, ProjectIndex
   capabilities/       Capabilities
   process/            ProcessSection

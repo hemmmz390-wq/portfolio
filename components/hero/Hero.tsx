@@ -1,9 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
-import { useIntroDone } from "@/lib/hooks/useIntroDone";
+import type { CSSProperties, ReactNode } from "react";
 
 interface HeroProps {
   displayName: string;
@@ -16,19 +12,32 @@ interface HeroProps {
   imageAlt: string;
 }
 
-/**
- * Letters are distributed edge to edge rather than set at a fixed size, so the
- * masthead always spans the full measure at any viewport.
- */
-function MastheadRow({ text, className = "" }: { text: string; className?: string }) {
+// The whole entrance is CSS and starts only once the opening overlay sets
+// data-intro-done (see globals.css), so these delays count from that moment.
+function delay(ms: number): CSSProperties {
+  return { animationDelay: `${ms}ms` };
+}
+
+/** Clips its child so it slides up into view from below its own baseline. */
+function SlideUp({
+  children,
+  delayMs,
+  className = "",
+}: {
+  children: ReactNode;
+  delayMs: number;
+  className?: string;
+}) {
   return (
-    <span className={`flex w-full justify-between ${className}`}>
-      {[...text].map((character, index) => (
-        <span key={`${character}-${index}`}>{character}</span>
-      ))}
+    <span className={`block overflow-hidden ${className}`}>
+      <span className="hero-slide-up block" style={delay(delayMs)}>
+        {children}
+      </span>
     </span>
   );
 }
+
+const corner = "font-body text-[9px] uppercase leading-relaxed tracking-[0.25em] text-muted";
 
 export function Hero({
   displayName,
@@ -40,11 +49,6 @@ export function Hero({
   imageSrc,
   imageAlt,
 }: HeroProps) {
-  const reducedMotion = usePrefersReducedMotion();
-  const introDone = useIntroDone();
-
-  const corner = "font-body text-[9px] uppercase leading-relaxed tracking-[0.25em] text-muted";
-
   return (
     <section className="relative flex min-h-screen flex-col justify-between overflow-hidden px-5 pb-6 pt-24 tablet:px-8 tablet:pb-8 tablet:pt-28">
       {/* Magazine trim line */}
@@ -57,8 +61,10 @@ export function Hero({
           full colour — the only colour on an otherwise monochrome page, which
           makes it the focal point. Anchored to the section so the flat bottom
           crop sits below the fold. */}
-      <div className="hero-reveal pointer-events-none absolute bottom-0 left-1/2 z-[15] h-[52vh] -translate-x-1/2 tablet:h-[78vh]">
-        <div className="relative aspect-[653/1220] h-full">
+      <div className="pointer-events-none absolute bottom-0 left-1/2 z-[15] h-[52vh] -translate-x-1/2 tablet:h-[78vh]">
+        {/* The rise lives on this inner box: the outer one's transform does
+            the centring, and an animated transform would overwrite it. */}
+        <div className="hero-portrait-rise relative aspect-[653/1220] h-full" style={delay(150)}>
           <div
             aria-hidden="true"
             className="absolute inset-[-25%] bg-[radial-gradient(ellipse_at_50%_45%,rgba(255,255,255,0.10),transparent_62%)]"
@@ -77,74 +83,75 @@ export function Hero({
       </div>
 
       <div className="relative z-20 flex items-start justify-between gap-6 px-2 tablet:px-4">
-        <div className="max-w-[15rem]">
+        <div className="hero-rise max-w-[15rem]" style={delay(650)}>
           <p className="font-display text-xs uppercase tracking-[0.3em] text-foreground">
             Jikosoukai
           </p>
           <p className={`mt-2 ${corner}`}>{intro}</p>
         </div>
 
-        <div className="text-right">
+        <div className="hero-rise text-right" style={delay(720)}>
           <p className="font-serif text-sm italic text-foreground/80">Portfolio — 2026</p>
           {/* The left block already carries the description at phone width. */}
           <p className={`mt-1 hidden tablet:block ${corner}`}>{role}</p>
         </div>
       </div>
 
-      {/* Masthead + portrait */}
+      {/* Masthead */}
       <div className="relative z-10 -mt-4 flex flex-1 items-center">
         {/* Extra right padding keeps the last letter clear of the scroll rail. */}
         <div className="relative w-full px-2 tablet:pl-4 tablet:pr-12">
-          <p className="mb-2 font-cjk text-sm tracking-[0.55em] text-foreground/70 tablet:text-xl">
-            {cjkName}
-          </p>
+          <SlideUp delayMs={250} className="mb-2">
+            <span className="font-cjk text-sm tracking-[0.55em] text-foreground/70 tablet:text-xl">
+              {cjkName}
+            </span>
+          </SlideUp>
 
-          <div className="relative">
-            <MastheadRow
-              text={displayName}
-              className="glitch-layer relative z-10 font-serif text-[17vw] leading-[0.82] text-foreground"
-            />
-            <MastheadRow
-              text={displayName}
-              className="glitch-ghost-a absolute inset-0 z-0 font-serif text-[17vw] leading-[0.82] text-[#ff2bd6] mix-blend-screen"
-            />
-            <MastheadRow
-              text={displayName}
-              className="glitch-ghost-b absolute inset-0 z-0 font-serif text-[17vw] leading-[0.82] text-[#00e5ff] mix-blend-screen"
-            />
-          </div>
+          {/* Letters are distributed edge to edge rather than set at a fixed
+              size, so the masthead spans the full measure at any viewport. The
+              padded clip box keeps serif tops and feet from being shaved off. */}
+          <h1
+            aria-label={`${displayName} ${signature}`}
+            className="flex w-full justify-between font-serif text-[17vw] font-normal leading-[0.82] text-foreground"
+          >
+            {[...displayName].map((character, index) => (
+              <SlideUp
+                key={`${character}-${index}`}
+                delayMs={300 + index * 70}
+                className="-my-[0.12em] py-[0.12em]"
+              >
+                <span aria-hidden="true">{character}</span>
+              </SlideUp>
+            ))}
+          </h1>
 
-          <p className="mt-1 text-right font-serif text-[7vw] italic leading-none text-foreground tablet:text-[4vw]">
-            {signature}
-          </p>
-
+          {/* Horizontal padding stops the italic overhang being clipped. Hidden
+              from assistive tech because the h1's label already includes it. */}
+          <SlideUp delayMs={780} className="-mx-[0.15em] mt-1 px-[0.15em] text-right">
+            <span
+              aria-hidden="true"
+              className="font-serif text-[7vw] italic leading-none text-foreground tablet:text-[4vw]"
+            >
+              {signature}
+            </span>
+          </SlideUp>
         </div>
       </div>
 
       <div className="relative z-20 flex items-end justify-between gap-6 px-2 tablet:px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-          transition={{ duration: 0.5, delay: reducedMotion ? 0.1 : 1.6 }}
-          className="max-w-[14rem]"
-        >
+        <div className="hero-rise max-w-[14rem]" style={delay(880)}>
           <p className="font-serif text-base italic text-foreground">Currently</p>
           <p className={`mt-1 ${corner}`}>Available for selected projects</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-          transition={{ duration: 0.5, delay: reducedMotion ? 0.1 : 1.75 }}
-          className="max-w-[16rem] text-right"
-        >
+        <div className="hero-rise max-w-[16rem] text-right" style={delay(960)}>
           <p className="font-serif text-base italic text-foreground">The idea is:</p>
           {subheadline.map((line) => (
             <span key={line} className={`block ${corner}`}>
               {line}
             </span>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       <span

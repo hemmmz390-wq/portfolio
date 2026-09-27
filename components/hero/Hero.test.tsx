@@ -20,11 +20,15 @@ function renderHero() {
 describe("Hero", () => {
   it("spreads the display name into individual letters for the masthead", () => {
     renderHero();
-    // One visible row plus two aria-hidden colour ghosts, so each letter of
-    // ELBERT appears once per row (E twice, since the name contains two).
-    expect(screen.getAllByText("B")).toHaveLength(3);
-    expect(screen.getAllByText("T")).toHaveLength(3);
-    expect(screen.getAllByText("E")).toHaveLength(6);
+    // One span per letter, so each slides up independently (ELBERT has two Es).
+    expect(screen.getAllByText("B")).toHaveLength(1);
+    expect(screen.getAllByText("T")).toHaveLength(1);
+    expect(screen.getAllByText("E")).toHaveLength(2);
+  });
+
+  it("exposes the full name as the page's level-one heading", () => {
+    renderHero();
+    expect(screen.getByRole("heading", { level: 1, name: "ELBERT Alwi" })).toBeInTheDocument();
   });
 
   it("renders the signature and CJK name", () => {

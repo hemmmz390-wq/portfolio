@@ -15,7 +15,7 @@ export default function ContactPage() {
         <p className="font-body text-[10px] uppercase tracking-[0.3em] text-muted">
           (01) — Contact
         </p>
-        <h1 className="mt-6 font-display text-5xl uppercase leading-[0.9] tracking-tight text-foreground tablet:text-8xl">
+        <h1 className="mt-6 font-display text-[clamp(2.25rem,14vw,3rem)] uppercase leading-[0.9] tracking-tight text-foreground tablet:text-8xl">
           Let&rsquo;s create
           <br />
           something

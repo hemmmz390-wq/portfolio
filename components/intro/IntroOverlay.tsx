@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { animate } from "framer-motion";
-import { markIntroDone } from "@/lib/hooks/useIntroDone";
+import { markIntroDone } from "@/lib/intro";
 
 const COUNT_DURATION = 1.5;
 const FADE_DELAY_MS = 1750;
