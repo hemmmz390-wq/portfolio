@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { League_Spartan, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { IntroOverlay } from "@/components/intro/IntroOverlay";
 import { AnimatedBackground } from "@/components/motion/AnimatedBackground";
 import { NoiseOverlay } from "@/components/motion/NoiseOverlay";
 import { CustomCursor } from "@/components/motion/CustomCursor";
@@ -18,6 +20,19 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
+
+// Subset of Noto Sans TC containing only 莊秉洋 (1.3 KB) — a full CJK face
+// would be megabytes for three glyphs.
+const notoSansTC = localFont({
+  src: "./fonts/noto-sans-tc-name.woff2",
+  weight: "700",
+  variable: "--font-noto-tc",
+  display: "swap",
+});
+
+// Runs before first paint so a session that already saw the intro never
+// flashes the overlay, and the hero entrance isn't left paused.
+const introGateScript = `(function(){try{var d=document.documentElement;var seen=sessionStorage.getItem('intro-played');var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(seen||reduced){d.setAttribute('data-intro-skip','');d.setAttribute('data-intro-done','');}}catch(e){d.setAttribute('data-intro-skip','');d.setAttribute('data-intro-done','');}})();`;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -45,8 +60,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${leagueSpartan.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${leagueSpartan.variable} ${inter.variable} ${notoSansTC.variable}`}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: introGateScript }} />
+      </head>
       <body className="min-h-screen antialiased">
+        <IntroOverlay name={siteSettings.name} cjkName="莊秉洋" />
         <LenisProvider>
           <AnimatedBackground />
           <NoiseOverlay />

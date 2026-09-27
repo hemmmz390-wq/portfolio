@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 import { useIsTouchDevice } from "@/lib/hooks/useIsTouchDevice";
+import { useIntroDone } from "@/lib/hooks/useIntroDone";
 import { GlitchText } from "@/components/hero/GlitchText";
 
 interface HeroProps {
@@ -18,6 +19,7 @@ interface HeroProps {
 export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroProps) {
   const reducedMotion = usePrefersReducedMotion();
   const isTouch = useIsTouchDevice();
+  const introDone = useIntroDone();
   const [pointerOffset, setPointerOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -109,7 +111,7 @@ export function Hero({ headline, subheadline, imageSrc, imageAlt, role }: HeroPr
 
         <motion.div
           initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
           transition={{ duration: 0.5, delay: reducedMotion ? 0.2 : 1.9 }}
           className="max-w-[16rem] tablet:pb-4"
         >
