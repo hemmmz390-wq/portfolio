@@ -11,9 +11,9 @@ describe("photography content", () => {
   it("records both competition results as Elbert stated them", () => {
     const awards = photographs.flatMap((photo) => (photo.award ? [photo.award] : []));
     expect(awards).toEqual([
-      { result: "Winner", competition: "ENLIGHT 2025 Photography Competition" },
+      { result: "3rd Place", competition: "ENLIGHT 2025 Photography Competition" },
       {
-        result: "Top 5",
+        result: "Top Five",
         competition: "ARSPACE Photography Competition, Universitas Ciputra Surabaya",
       },
     ]);

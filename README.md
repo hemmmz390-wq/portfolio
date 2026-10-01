@@ -69,11 +69,13 @@ Set `discipline` to `"web"` or `"content"`. Work is shown in separate sections b
 
 ### Photography
 
-Photographs live in `lib/content/photography.ts` and the files in `public/images/photography/`. They appear as their own section on the homepage and on `/work`, laid out as a spread: every third frame runs full width and the two between pair up.
+Photographs live in `lib/content/photography.ts` and the files in `public/images/photography/`. They appear as their own section on the homepage and on `/work`, split into two carousels: **Awarded** (competition work) and **Personal Work**.
 
-Each entry needs its real `width` and `height` so the frame keeps its own aspect ratio; a test checks these against the actual files. Photographs are shown in full colour, unlike the grayscale project covers, because the grading is part of the work.
+The carousels use native CSS scroll-snap, so touch swiping, trackpad scrolling and keyboard arrows (once the strip is focused) all work without a library; the prev/next buttons and the `01 / 04` counter read and move the same scroll position. Every frame keeps its own aspect ratio at a shared height, capped so a wide frame never runs past a phone screen.
 
-To mark an award-winning frame, add `award: { result, competition }` to it. Awarded frames are pulled out and shown first, side by side at a matched height (each column is sized by its photo's aspect ratio), and they are listed automatically under **Awards** on the About page. There is no separate awards list to keep in sync.
+Each entry needs its real `width` and `height`; a test checks these against the actual files. Photographs are shown in full colour, unlike the grayscale project covers, because the grading is part of the work.
+
+To mark an award-winning frame, add `award: { result, competition }` to it. It moves into the Awarded carousel with the result and competition written over a dark shadow at the foot of the frame, and it is listed automatically under **Awards** on the About page. There is no separate awards list to keep in sync.
 
 ### Project images
 

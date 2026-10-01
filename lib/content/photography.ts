@@ -8,7 +8,7 @@ export const photographs: Photograph[] = [
     alt: "A person seated on a chair reading a sheet of paper in a dark room between two tall wardrobes, lit by a single lamp",
     width: 1401,
     height: 1600,
-    award: { result: "Winner", competition: "ENLIGHT 2025 Photography Competition" },
+    award: { result: "3rd Place", competition: "ENLIGHT 2025 Photography Competition" },
   },
   {
     src: "/images/photography/award-table-light.webp",
@@ -16,7 +16,7 @@ export const photographs: Photograph[] = [
     width: 1280,
     height: 719,
     award: {
-      result: "Top 5",
+      result: "Top Five",
       competition: "ARSPACE Photography Competition, Universitas Ciputra Surabaya",
     },
   },
