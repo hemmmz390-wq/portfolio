@@ -67,6 +67,12 @@ Set `discipline` to `"web"` or `"content"`. Work is shown in separate sections b
 
 `liveLabel` is optional and sets the link text on the detail page (it defaults to "Visit site"; Neduh Gas uses "View on TikTok").
 
+### Photography
+
+Photographs live in `lib/content/photography.ts` and the files in `public/images/photography/`. They appear as their own section on the homepage and on `/work`, laid out as a spread: every third frame runs full width and the two between pair up.
+
+Each entry needs its real `width` and `height` so the frame keeps its own aspect ratio; a test checks these against the actual files. Photographs are shown in full colour, unlike the grayscale project covers, because the grading is part of the work.
+
 ### Project images
 
 Each project's `coverImage` / `heroImage` points at a screenshot of the live site in `public/images/projects/`. To replace or add one:

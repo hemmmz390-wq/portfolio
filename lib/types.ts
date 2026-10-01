@@ -68,6 +68,15 @@ export interface ProjectGroup extends DisciplineInfo {
   projects: Project[];
 }
 
+export interface Photograph {
+  src: string;
+  alt: string;
+  /** Intrinsic size, so each frame keeps its own aspect ratio in the grid. */
+  width: number;
+  height: number;
+  caption?: string;
+}
+
 export interface ProcessStep {
   number: string;
   title: string;

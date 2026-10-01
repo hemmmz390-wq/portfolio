@@ -4,10 +4,12 @@ import { ProjectGrid } from "@/components/projects/ProjectGrid";
 import { ProjectIndexGroups } from "@/components/projects/ProjectIndexGroups";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { getProjectGroups } from "@/lib/content/projects";
+import { photographs } from "@/lib/content/photography";
+import { PhotoGallery } from "@/components/photography/PhotoGallery";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Web development and content creation work.",
+  description: "Web development, content creation, and photography.",
 };
 
 export default function WorkPage() {
@@ -40,6 +42,17 @@ export default function WorkPage() {
             <ProjectGrid projects={group.projects} />
           </section>
         ))}
+
+        {photographs.length > 0 && (
+          <section id="photography" className="mt-28 scroll-mt-28">
+            <SectionHeading
+              eyebrow={`(${String(groups.length + 2).padStart(2, "0")}) — Selected Frames`}
+              title="Photography"
+              className="mb-14"
+            />
+            <PhotoGallery photographs={photographs} />
+          </section>
+        )}
       </main>
     </PageTransition>
   );
