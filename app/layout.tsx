@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { siteUrl } from "@/lib/site-url";
 import { League_Spartan, Inter, Bodoni_Moda } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -41,8 +42,6 @@ const notoSansTC = localFont({
 // Runs before first paint: reduced-motion visitors skip the overlay without a
 // flash, and the hero entrance is released instead of being left paused.
 const introGateScript = `(function(){var d=document.documentElement;try{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){d.setAttribute('data-intro-skip','');d.setAttribute('data-intro-done','');}}catch(e){d.setAttribute('data-intro-skip','');d.setAttribute('data-intro-done','');}})();`;
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
