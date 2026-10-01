@@ -1,10 +1,11 @@
-import { Project } from "@/lib/types";
+import { Discipline, DisciplineInfo, Project, ProjectGroup } from "@/lib/types";
 
 export const projects: Project[] = [
   {
     slug: "marginku",
     number: "01",
     title: "Marginku",
+    discipline: "web",
     category: "Financial Tool / Web App",
     year: "2026",
     role: "Solo Developer",
@@ -23,6 +24,7 @@ export const projects: Project[] = [
     slug: "hospi-ai",
     number: "02",
     title: "Hospi AI",
+    discipline: "web",
     category: "Hotel AI Assistant / Web App",
     year: "2026",
     role: "Web Developer — team project, built the web app from scratch",
@@ -41,6 +43,7 @@ export const projects: Project[] = [
     slug: "hibiz",
     number: "03",
     title: "Hibiz",
+    discipline: "web",
     category: "Organization Site / Web App",
     year: "2026",
     role: "Solo Developer",
@@ -59,6 +62,7 @@ export const projects: Project[] = [
     slug: "neduh-gas",
     number: "04",
     title: "Neduh Gas",
+    discipline: "content",
     category: "Content Creation / Social Video",
     year: "2026",
     role: "Content Creator & Editor — four-person team",
@@ -78,4 +82,24 @@ export const projects: Project[] = [
 
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug);
+}
+
+/** Display order and labels for the two kinds of work. */
+export const disciplines: DisciplineInfo[] = [
+  { id: "web", label: "Web Development", description: "Websites & Web Apps" },
+  { id: "content", label: "Content Creation", description: "Video & Social" },
+];
+
+export function getProjectsByDiscipline(
+  discipline: Discipline,
+  list: Project[] = projects
+): Project[] {
+  return list.filter((project) => project.discipline === discipline);
+}
+
+/** Groups in `disciplines` order; groups with no projects are left out. */
+export function getProjectGroups(list: Project[] = projects): ProjectGroup[] {
+  return disciplines
+    .map((discipline) => ({ ...discipline, projects: getProjectsByDiscipline(discipline.id, list) }))
+    .filter((group) => group.projects.length > 0);
 }

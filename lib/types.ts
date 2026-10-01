@@ -21,6 +21,8 @@ export interface SiteSettings {
   introParagraph: string;
 }
 
+export type Discipline = "web" | "content";
+
 export interface ProjectImage {
   src: string;
   alt: string;
@@ -31,6 +33,7 @@ export interface Project {
   slug: string;
   number: string;
   title: string;
+  discipline: Discipline;
   category: string;
   year: string;
   role: string;
@@ -44,6 +47,16 @@ export interface Project {
   imageTreatment: ImageTreatment;
   gallery: ProjectImage[];
   featured: boolean;
+}
+
+export interface DisciplineInfo {
+  id: Discipline;
+  label: string;
+  description: string;
+}
+
+export interface ProjectGroup extends DisciplineInfo {
+  projects: Project[];
 }
 
 export interface ProcessStep {

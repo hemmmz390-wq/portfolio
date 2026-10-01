@@ -63,6 +63,10 @@ Shapes for all of these are defined in `lib/types.ts`.
 
 Append an entry to the `projects` array in `lib/content/projects.ts`. The `slug` becomes its URL (`/work/<slug>`), and the page is statically generated at build time.
 
+Set `discipline` to `"web"` or `"content"`. Work is shown in separate sections by discipline, on the homepage and on `/work`, and the index is split the same way. Section labels and their order come from the `disciplines` array in the same file; a discipline with no projects is simply left out.
+
+`liveLabel` is optional and sets the link text on the detail page (it defaults to "Visit site"; Neduh Gas uses "View on TikTok").
+
 ### Project images
 
 Each project's `coverImage` / `heroImage` points at a screenshot of the live site in `public/images/projects/`. To replace or add one:

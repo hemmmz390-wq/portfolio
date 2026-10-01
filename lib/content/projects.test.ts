@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { projects, getProjectBySlug } from "@/lib/content/projects";
+import {
+  projects,
+  getProjectBySlug,
+  getProjectGroups,
+  getProjectsByDiscipline,
+} from "@/lib/content/projects";
 
 describe("projects content", () => {
   it("has exactly 4 real projects", () => {
@@ -37,5 +42,30 @@ describe("projects content", () => {
     const numbers = projects.map((project) => project.number);
     expect(new Set(slugs).size).toBe(projects.length);
     expect(new Set(numbers).size).toBe(projects.length);
+  });
+});
+
+describe("project disciplines", () => {
+  it("keeps web work and content work apart", () => {
+    expect(getProjectsByDiscipline("web").map((project) => project.slug)).toEqual([
+      "marginku",
+      "hospi-ai",
+      "hibiz",
+    ]);
+    expect(getProjectsByDiscipline("content").map((project) => project.slug)).toEqual([
+      "neduh-gas",
+    ]);
+  });
+
+  it("groups web first, then content, and accounts for every project", () => {
+    const groups = getProjectGroups();
+    expect(groups.map((group) => group.id)).toEqual(["web", "content"]);
+    const grouped = groups.flatMap((group) => group.projects);
+    expect(grouped).toHaveLength(projects.length);
+  });
+
+  it("leaves out a discipline that has no projects in the given list", () => {
+    const webOnly = getProjectsByDiscipline("web");
+    expect(getProjectGroups(webOnly).map((group) => group.id)).toEqual(["web"]);
   });
 });

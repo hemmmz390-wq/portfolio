@@ -3,17 +3,21 @@ import { Hero } from "@/components/hero/Hero";
 import { SectionHeading } from "@/components/typography/SectionHeading";
 import { Marquee } from "@/components/marquee/Marquee";
 import { ProjectGrid } from "@/components/projects/ProjectGrid";
-import { ProjectIndex } from "@/components/projects/ProjectIndex";
+import { ProjectIndexGroups } from "@/components/projects/ProjectIndexGroups";
 import { Capabilities } from "@/components/capabilities/Capabilities";
 import { ProcessSection } from "@/components/process/ProcessSection";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { siteSettings } from "@/lib/content/site";
-import { projects } from "@/lib/content/projects";
+import { projects, getProjectGroups } from "@/lib/content/projects";
 import { capabilities } from "@/lib/content/capabilities";
 import { processSteps } from "@/lib/content/process";
 
+function sectionNumber(value: number): string {
+  return String(value).padStart(2, "0");
+}
+
 export default function HomePage() {
-  const featuredProjects = projects.filter((project) => project.featured);
+  const featuredGroups = getProjectGroups(projects.filter((project) => project.featured));
 
   return (
     <PageTransition>
@@ -41,26 +45,39 @@ export default function HomePage() {
           </p>
         </section>
 
-        <section className="px-6 py-20 tablet:px-10">
-          <div className="mb-14 flex items-end justify-between gap-6">
-            <SectionHeading eyebrow="(03) — Selected Work" title="Projects" />
-            <Link
-              href="/work"
-              className="hidden shrink-0 border-b border-border pb-1 font-body text-[10px] uppercase tracking-[0.2em] text-muted transition-colors hover:border-foreground hover:text-foreground tablet:block"
-            >
-              View All →
-            </Link>
-          </div>
-          {featuredProjects.length > 0 ? (
-            <ProjectGrid projects={featuredProjects} />
-          ) : (
+        {featuredGroups.length === 0 && (
+          <section className="px-6 py-20 tablet:px-10">
             <p className="font-display text-2xl uppercase text-muted">Work coming soon.</p>
-          )}
-        </section>
+          </section>
+        )}
+
+        {/* Sections are numbered from (03); with both disciplines present the
+            index lands on (05), keeping the run through (08) unbroken. */}
+        {featuredGroups.map((group, index) => (
+          <section key={group.id} className="px-6 py-20 tablet:px-10">
+            <div className="mb-14 flex items-end justify-between gap-6">
+              <SectionHeading
+                eyebrow={`(${sectionNumber(index + 3)}) — ${group.description}`}
+                title={group.label}
+              />
+              <Link
+                href={`/work#${group.id}`}
+                className="hidden shrink-0 border-b border-border pb-1 font-body text-[10px] uppercase tracking-[0.2em] text-muted transition-colors hover:border-foreground hover:text-foreground tablet:block"
+              >
+                View All →
+              </Link>
+            </div>
+            <ProjectGrid projects={group.projects} />
+          </section>
+        ))}
 
         <section className="px-6 py-28 tablet:px-10">
-          <SectionHeading eyebrow="(04) — Index" title="All Work" className="mb-12" />
-          <ProjectIndex projects={projects} />
+          <SectionHeading
+            eyebrow={`(${sectionNumber(featuredGroups.length + 3)}) — Index`}
+            title="All Work"
+            className="mb-12"
+          />
+          <ProjectIndexGroups groups={getProjectGroups()} />
         </section>
 
         <section className="py-10">

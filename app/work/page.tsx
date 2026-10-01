@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/typography/SectionHeading";
 import { ProjectGrid } from "@/components/projects/ProjectGrid";
-import { ProjectIndex } from "@/components/projects/ProjectIndex";
+import { ProjectIndexGroups } from "@/components/projects/ProjectIndexGroups";
 import { PageTransition } from "@/components/layout/PageTransition";
-import { projects } from "@/lib/content/projects";
+import { getProjectGroups } from "@/lib/content/projects";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Selected projects in web development, photography, and content creation.",
+  description: "Web development and content creation work.",
 };
 
 export default function WorkPage() {
-  if (projects.length === 0) {
+  const groups = getProjectGroups();
+
+  if (groups.length === 0) {
     return (
       <PageTransition>
         <main className="px-6 pb-28 pt-36 tablet:px-10 tablet:pt-48">
@@ -26,12 +28,18 @@ export default function WorkPage() {
     <PageTransition>
       <main className="px-6 pb-28 pt-36 tablet:px-10 tablet:pt-48">
         <SectionHeading eyebrow="(01) — Index" title="All Work" className="mb-16" />
-        <ProjectIndex projects={projects} />
+        <ProjectIndexGroups groups={groups} />
 
-        <section className="mt-28">
-          <SectionHeading eyebrow="(02) — Overview" title="In Detail" className="mb-14" />
-          <ProjectGrid projects={projects} />
-        </section>
+        {groups.map((group, index) => (
+          <section key={group.id} id={group.id} className="mt-28 scroll-mt-28">
+            <SectionHeading
+              eyebrow={`(${String(index + 2).padStart(2, "0")}) — ${group.description}`}
+              title={group.label}
+              className="mb-14"
+            />
+            <ProjectGrid projects={group.projects} />
+          </section>
+        ))}
       </main>
     </PageTransition>
   );
