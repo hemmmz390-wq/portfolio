@@ -110,35 +110,46 @@ export default async function ProjectDetailPage(props: PageProps<"/work/[slug]">
           </p>
         </section>
 
+        {project.gallery.length > 0 && (
+          <section className="mt-24 grid grid-cols-1 gap-10 tablet:grid-cols-[minmax(0,0.4fr)_minmax(0,1fr)] tablet:gap-16">
+            <h2 className="font-body text-[10px] uppercase tracking-[0.3em] text-muted">Gallery</h2>
+            {/* Shown at each image's own shape, never cropped: screenshots lose
+                their meaning if the edges are cut off. A lone image takes the
+                full column; several pair up. */}
+            <div
+              className={`grid grid-cols-1 gap-8 ${project.gallery.length > 1 ? "tablet:grid-cols-2" : ""}`}
+            >
+              {project.gallery.map((image) => (
+                <figure key={image.src}>
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    width={image.width}
+                    height={image.height}
+                    sizes={
+                      project.gallery.length > 1
+                        ? "(max-width: 768px) 100vw, 35vw"
+                        : "(max-width: 768px) 100vw, 70vw"
+                    }
+                    className={`h-auto w-full border border-border ${imageTreatmentClass(project.imageTreatment)}`}
+                  />
+                  {image.caption && (
+                    <figcaption className="mt-3 font-body text-[10px] uppercase tracking-[0.2em] text-muted">
+                      {image.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
         {project.team && project.team.length > 0 && (
           <section className="mt-24 grid grid-cols-1 gap-10 tablet:grid-cols-[minmax(0,0.4fr)_minmax(0,1fr)] tablet:gap-16">
             <h2 className="font-body text-[10px] uppercase tracking-[0.3em] text-muted">
               The Team
             </h2>
             <ProjectTeam members={project.team} />
-          </section>
-        )}
-
-        {project.gallery.length > 0 && (
-          <section className="mt-24 grid grid-cols-1 gap-8 tablet:grid-cols-2">
-            {project.gallery.map((image) => (
-              <figure key={image.src}>
-                <div className="relative aspect-4/3 w-full overflow-hidden border border-border">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className={`object-cover ${imageTreatmentClass(project.imageTreatment)}`}
-                  />
-                </div>
-                {image.caption && (
-                  <figcaption className="mt-3 font-body text-[10px] uppercase tracking-[0.2em] text-muted">
-                    {image.caption}
-                  </figcaption>
-                )}
-              </figure>
-            ))}
           </section>
         )}
 

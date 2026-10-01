@@ -33,6 +33,9 @@ export interface TeamMember {
 export interface ProjectImage {
   src: string;
   alt: string;
+  /** Intrinsic size, so screenshots and photos show uncropped at their own shape. */
+  width: number;
+  height: number;
   caption?: string;
 }
 

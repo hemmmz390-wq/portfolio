@@ -92,7 +92,7 @@ Setting either back to `null` is supported — the card falls back to a typograp
 
 `imageTreatment` controls the filter applied to a project's images (`normal`, `grayscale`, `highContrast`, `monochrome`); see `lib/imageTreatment.ts`. Cards render the treatment by default and reveal full color on hover.
 
-The `gallery` array works the same way and accepts `{ src, alt, caption? }` entries.
+The `gallery` array takes `{ src, alt, width, height, caption? }` entries and shows them on the detail page under **Gallery**, between the overview and the team. Images are never cropped: each shows at its real shape, so `width` and `height` must match the file (a test checks this). One image spans the full column; two or more pair up.
 
 #### Re-capturing screenshots
 

@@ -75,7 +75,15 @@ export const projects: Project[] = [
     coverImage: "/images/projects/neduh-gas/logo-cover.webp",
     heroImage: "/images/projects/neduh-gas/logo-cover.webp",
     imageTreatment: "normal",
-    gallery: [],
+    gallery: [
+      {
+        src: "/images/projects/neduh-gas/tiktok-profile.webp",
+        alt: "The Neduh Gas TikTok profile: the channel logo and bio above a grid of video thumbnails from around Bali",
+        width: 1402,
+        height: 857,
+        caption: "@neduh_gas on TikTok",
+      },
+    ],
     team: [
       {
         name: "Elbert",

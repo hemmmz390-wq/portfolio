@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import sharp from "sharp";
 import {
   projects,
   getProjectBySlug,
@@ -28,10 +29,24 @@ describe("projects content", () => {
     }
   });
 
+  it("records each gallery image's real size, so none is stretched", async () => {
+    for (const project of projects) {
+      for (const image of project.gallery) {
+        const { width, height } = await sharp(join(process.cwd(), "public", image.src)).metadata();
+        expect({ src: image.src, width, height }).toEqual({
+          src: image.src,
+          width: image.width,
+          height: image.height,
+        });
+      }
+    }
+  });
+
   it("every referenced image file actually exists in public/", () => {
     for (const project of projects) {
       const teamImages = (project.team ?? []).map((member) => member.image);
-      for (const path of [project.coverImage, project.heroImage, ...teamImages]) {
+      const galleryImages = project.gallery.map((image) => image.src);
+      for (const path of [project.coverImage, project.heroImage, ...teamImages, ...galleryImages]) {
         if (path === null) continue;
         expect(existsSync(join(process.cwd(), "public", path)), path).toBe(true);
       }
