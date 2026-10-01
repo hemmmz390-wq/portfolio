@@ -4,6 +4,23 @@ import { Photograph } from "@/lib/types";
 // what is in frame rather than naming places or events.
 export const photographs: Photograph[] = [
   {
+    src: "/images/photography/award-reading-room.webp",
+    alt: "A person seated on a chair reading a sheet of paper in a dark room between two tall wardrobes, lit by a single lamp",
+    width: 1401,
+    height: 1600,
+    award: { result: "Winner", competition: "ENLIGHT 2025 Photography Competition" },
+  },
+  {
+    src: "/images/photography/award-table-light.webp",
+    alt: "A person resting their head on their arms at a white table, sunlight casting soft shapes across the wall behind",
+    width: 1280,
+    height: 719,
+    award: {
+      result: "Top 5",
+      competition: "ARSPACE Photography Competition, Universitas Ciputra Surabaya",
+    },
+  },
+  {
     src: "/images/photography/sea-temple.webp",
     alt: "A sea temple on a rock outcrop, waves washing over the reef at its base under a clear blue sky",
     width: 2000,

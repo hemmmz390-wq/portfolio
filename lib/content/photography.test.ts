@@ -5,7 +5,18 @@ import { photographs } from "@/lib/content/photography";
 
 describe("photography content", () => {
   it("has a frame for every photograph supplied", () => {
-    expect(photographs).toHaveLength(4);
+    expect(photographs).toHaveLength(6);
+  });
+
+  it("records both competition results as Elbert stated them", () => {
+    const awards = photographs.flatMap((photo) => (photo.award ? [photo.award] : []));
+    expect(awards).toEqual([
+      { result: "Winner", competition: "ENLIGHT 2025 Photography Competition" },
+      {
+        result: "Top 5",
+        competition: "ARSPACE Photography Competition, Universitas Ciputra Surabaya",
+      },
+    ]);
   });
 
   it("records each image's real size, so no frame is stretched", async () => {

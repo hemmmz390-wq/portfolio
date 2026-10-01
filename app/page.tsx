@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/typography/SectionHeading";
 import { Marquee } from "@/components/marquee/Marquee";
 import { ProjectGrid } from "@/components/projects/ProjectGrid";
 import { ProjectIndexGroups } from "@/components/projects/ProjectIndexGroups";
-import { PhotoGallery } from "@/components/photography/PhotoGallery";
+import { PhotographyShowcase } from "@/components/photography/PhotographyShowcase";
 import { Capabilities } from "@/components/capabilities/Capabilities";
 import { ProcessSection } from "@/components/process/ProcessSection";
 import { PageTransition } from "@/components/layout/PageTransition";
@@ -84,7 +84,7 @@ export default function HomePage() {
               title="Photography"
               className="mb-14"
             />
-            <PhotoGallery photographs={photographs} />
+            <PhotographyShowcase photographs={photographs} />
           </section>
         )}
 

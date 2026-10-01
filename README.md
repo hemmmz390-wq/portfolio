@@ -73,6 +73,8 @@ Photographs live in `lib/content/photography.ts` and the files in `public/images
 
 Each entry needs its real `width` and `height` so the frame keeps its own aspect ratio; a test checks these against the actual files. Photographs are shown in full colour, unlike the grayscale project covers, because the grading is part of the work.
 
+To mark an award-winning frame, add `award: { result, competition }` to it. Awarded frames are pulled out and shown first, side by side at a matched height (each column is sized by its photo's aspect ratio), and they are listed automatically under **Awards** on the About page. There is no separate awards list to keep in sync.
+
 ### Project images
 
 Each project's `coverImage` / `heroImage` points at a screenshot of the live site in `public/images/projects/`. To replace or add one:

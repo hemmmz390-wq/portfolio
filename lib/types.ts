@@ -68,6 +68,13 @@ export interface ProjectGroup extends DisciplineInfo {
   projects: Project[];
 }
 
+export interface PhotoAward {
+  /** The result, shown large: "Winner", "Top 5". */
+  result: string;
+  /** The competition it was won at. */
+  competition: string;
+}
+
 export interface Photograph {
   src: string;
   alt: string;
@@ -75,6 +82,7 @@ export interface Photograph {
   width: number;
   height: number;
   caption?: string;
+  award?: PhotoAward;
 }
 
 export interface ProcessStep {

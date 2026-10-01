@@ -5,7 +5,7 @@ import { ProjectIndexGroups } from "@/components/projects/ProjectIndexGroups";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { getProjectGroups } from "@/lib/content/projects";
 import { photographs } from "@/lib/content/photography";
-import { PhotoGallery } from "@/components/photography/PhotoGallery";
+import { PhotographyShowcase } from "@/components/photography/PhotographyShowcase";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -50,7 +50,7 @@ export default function WorkPage() {
               title="Photography"
               className="mb-14"
             />
-            <PhotoGallery photographs={photographs} />
+            <PhotographyShowcase photographs={photographs} />
           </section>
         )}
       </main>
