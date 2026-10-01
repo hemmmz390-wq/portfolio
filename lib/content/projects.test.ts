@@ -30,11 +30,22 @@ describe("projects content", () => {
 
   it("every referenced image file actually exists in public/", () => {
     for (const project of projects) {
-      for (const path of [project.coverImage, project.heroImage]) {
+      const teamImages = (project.team ?? []).map((member) => member.image);
+      for (const path of [project.coverImage, project.heroImage, ...teamImages]) {
         if (path === null) continue;
-        expect(existsSync(join(process.cwd(), "public", path))).toBe(true);
+        expect(existsSync(join(process.cwd(), "public", path)), path).toBe(true);
       }
     }
+  });
+
+  it("credits the four-person Neduh Gas team with their roles", () => {
+    const team = getProjectBySlug("neduh-gas")?.team ?? [];
+    expect(team.map((member) => [member.name, member.role])).toEqual([
+      ["Elbert", "Content Creator & Editor"],
+      ["Amara", "Social Media Admin"],
+      ["Aurel", "Content Strategy"],
+      ["Artha", "Content Creator"],
+    ]);
   });
 
   it("every project has a unique slug and number", () => {

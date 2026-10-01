@@ -23,6 +23,13 @@ export interface SiteSettings {
 
 export type Discipline = "web" | "content";
 
+export interface TeamMember {
+  name: string;
+  role: string;
+  /** Background-removed portrait, rendered over the page background. */
+  image: string;
+}
+
 export interface ProjectImage {
   src: string;
   alt: string;
@@ -46,6 +53,8 @@ export interface Project {
   heroImage: string | null;
   imageTreatment: ImageTreatment;
   gallery: ProjectImage[];
+  /** People who worked on it; shown as a team section on the detail page. */
+  team?: TeamMember[];
   featured: boolean;
 }
 

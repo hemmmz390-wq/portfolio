@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PageTransition } from "@/components/layout/PageTransition";
+import { ProjectTeam } from "@/components/projects/ProjectTeam";
 import { projects, getProjectBySlug } from "@/lib/content/projects";
 import { imageTreatmentClass } from "@/lib/imageTreatment";
 
@@ -108,6 +109,15 @@ export default async function ProjectDetailPage(props: PageProps<"/work/[slug]">
             {project.description}
           </p>
         </section>
+
+        {project.team && project.team.length > 0 && (
+          <section className="mt-24 grid grid-cols-1 gap-10 tablet:grid-cols-[minmax(0,0.4fr)_minmax(0,1fr)] tablet:gap-16">
+            <h2 className="font-body text-[10px] uppercase tracking-[0.3em] text-muted">
+              The Team
+            </h2>
+            <ProjectTeam members={project.team} />
+          </section>
+        )}
 
         {project.gallery.length > 0 && (
           <section className="mt-24 grid grid-cols-1 gap-8 tablet:grid-cols-2">
