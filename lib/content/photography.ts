@@ -4,10 +4,12 @@ import { Photograph } from "@/lib/types";
 // what is in frame rather than naming places or events.
 export const photographs: Photograph[] = [
   {
-    src: "/images/photography/award-reading-room.webp",
-    alt: "A person seated on a chair reading a sheet of paper in a dark room between two tall wardrobes, lit by a single lamp",
+    // Cropped to 16:9 from the original portrait so it pairs with the ARSPACE
+    // frame; the crop keeps the full figure and chair but loses the lamp.
+    src: "/images/photography/award-reading-room-wide.webp",
+    alt: "A person seated on a chair reading a sheet of paper in a dark room, framed between two tall wardrobes",
     width: 1401,
-    height: 1600,
+    height: 787,
     award: { result: "3rd Place", competition: "ENLIGHT 2025 Photography Competition" },
   },
   {

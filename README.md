@@ -73,6 +73,10 @@ Photographs live in `lib/content/photography.ts` and the files in `public/images
 
 The carousels use native CSS scroll-snap, so touch swiping, trackpad scrolling and keyboard arrows (once the strip is focused) all work without a library; the prev/next buttons and the `01 / 04` counter read and move the same scroll position. Every frame keeps its own aspect ratio at a shared height, capped so a wide frame never runs past a phone screen.
 
+They advance by themselves every 4.5 seconds (`AUTOPLAY_MS` in `PhotoCarousel.tsx`) and loop back to the first frame. Autoplay holds while the pointer is over the carousel or focus is inside it, waits a full interval after any manual move, runs only while the carousel is on screen, and has a visible pause button. It is off entirely under `prefers-reduced-motion`. The counter's screen-reader announcements are switched off while it plays automatically.
+
+The Awarded carousel shows its frames in gray until hovered, like the project cards (`revealColourOnHover`). That only applies on devices that can hover; on a touch screen the frames stay in colour, since there is nothing to hover.
+
 Each entry needs its real `width` and `height`; a test checks these against the actual files. Photographs are shown in full colour, unlike the grayscale project covers, because the grading is part of the work.
 
 To mark an award-winning frame, add `award: { result, competition }` to it. It moves into the Awarded carousel with the result and competition written over a dark shadow at the foot of the frame, and it is listed automatically under **Awards** on the About page. There is no separate awards list to keep in sync.

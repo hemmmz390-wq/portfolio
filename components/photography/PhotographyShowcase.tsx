@@ -12,7 +12,9 @@ export function PhotographyShowcase({ photographs }: PhotographyShowcaseProps) {
 
   return (
     <div className="flex flex-col gap-20">
-      {awarded.length > 0 && <PhotoCarousel label="Awarded" photographs={awarded} />}
+      {awarded.length > 0 && (
+        <PhotoCarousel label="Awarded" photographs={awarded} revealColourOnHover />
+      )}
       {personal.length > 0 && <PhotoCarousel label="Personal Work" photographs={personal} />}
     </div>
   );
