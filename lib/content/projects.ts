@@ -17,7 +17,29 @@ export const projects: Project[] = [
     coverImage: "/images/projects/marginku-cover.webp",
     heroImage: "/images/projects/marginku-cover.webp",
     imageTreatment: "grayscale",
-    gallery: [],
+    gallery: [
+      {
+        src: "/images/projects/marginku/calculator.webp",
+        alt: "Marginku's instant margin calculator: sliders for cost and sale price beside a green result card showing net profit and margin",
+        width: 1600,
+        height: 1000,
+        caption: "Instant margin calculator",
+      },
+      {
+        src: "/images/projects/marginku/problem.webp",
+        alt: "A section showing how hidden costs like packaging, gas and rent push a dish's real cost above what the owner assumed",
+        width: 1600,
+        height: 1000,
+        caption: "Where the money goes",
+      },
+      {
+        src: "/images/projects/marginku/categories.webp",
+        alt: "Three category cards — food and drink, shops and retail, handmade products — each listing the calculations it focuses on",
+        width: 1600,
+        height: 1000,
+        caption: "Built for three kinds of business",
+      },
+    ],
     featured: true,
   },
   {
@@ -33,10 +55,32 @@ export const projects: Project[] = [
       "A hotel digital assistant that turns guest requests into routed, SLA-tracked work tickets.",
     description:
       "Hospi AI is a hotel digital assistant that turns guest requests into work tickets routed to the correct department automatically. A guest scans the QR code in their room, or types a room number, then asks for something by chat, quick button, or voice recording, in their own language across eight supported languages. The AI reads the intent, decides the department and urgency, and the ticket lands on the right staff dashboard with an SLA timer already running. Five staff surfaces cover the operation: Front Office as the control centre for every ticket, with SLA alerts and live chat; Housekeeping for cleaning and amenities; Maintenance for technical repairs; Duty Manager for escalations, complaints, and stalled tickets; and Restaurant for food and beverage orders. What sets it apart: replies follow the language the guest actually used rather than the one picked from a menu, contextual upsell offers appear while a guest is ordering, poor ratings escalate to the Duty Manager on their own, a guest can ask for a human at any point and the AI immediately stops replying, and a fallback rule engine keeps the whole thing running even with no API key.",
-    coverImage: "/images/projects/hospi-ai-cover.webp",
-    heroImage: "/images/projects/hospi-ai-cover.webp",
+    coverImage: "/images/projects/hospi-ai/landing.webp",
+    heroImage: "/images/projects/hospi-ai/landing.webp",
     imageTreatment: "grayscale",
-    gallery: [],
+    gallery: [
+      {
+        src: "/images/projects/hospi-ai/presentation.webp",
+        alt: "Hospi AI's presentation mode: the guest's phone concierge on the left and the hotel staff dashboard on the right",
+        width: 1600,
+        height: 1000,
+        caption: "Presentation mode — guest and staff side by side",
+      },
+      {
+        src: "/images/projects/hospi-ai/front-office.webp",
+        alt: "The Front Office dashboard: ticket counts, SLA alerts and a live queue of guest requests sorted by urgency",
+        width: 1600,
+        height: 1000,
+        caption: "Front Office dashboard",
+      },
+      {
+        src: "/images/projects/hospi-ai/how-it-works.webp",
+        alt: "The four steps from a guest's request to resolution: guest asks, AI understands, right team receives, request gets resolved",
+        width: 1600,
+        height: 1000,
+        caption: "How it works",
+      },
+    ],
     featured: true,
   },
   {
@@ -55,7 +99,29 @@ export const projects: Project[] = [
     coverImage: "/images/projects/hibiz-cover.webp",
     heroImage: "/images/projects/hibiz-cover.webp",
     imageTreatment: "grayscale",
-    gallery: [],
+    gallery: [
+      {
+        src: "/images/projects/hibiz/about.webp",
+        alt: "The Hibiz about section: the organization's vision in italics above its five numbered missions",
+        width: 1600,
+        height: 1000,
+        caption: "Vision & mission",
+      },
+      {
+        src: "/images/projects/hibiz/programs.webp",
+        alt: "The programs section, documenting the HALO orientation program with a grid of event photos",
+        width: 1600,
+        height: 1000,
+        caption: "Program documentation",
+      },
+      {
+        src: "/images/projects/hibiz/silk-connect.webp",
+        alt: "The Silk Connect section, covering a visit from Universitas Primakara with a strip of event photos",
+        width: 1600,
+        height: 1000,
+        caption: "Silk Connect",
+      },
+    ],
     featured: true,
   },
   {
@@ -130,6 +196,9 @@ export function getProjectsByDiscipline(
 /** Groups in `disciplines` order; groups with no projects are left out. */
 export function getProjectGroups(list: Project[] = projects): ProjectGroup[] {
   return disciplines
-    .map((discipline) => ({ ...discipline, projects: getProjectsByDiscipline(discipline.id, list) }))
+    .map((discipline) => ({
+      ...discipline,
+      projects: getProjectsByDiscipline(discipline.id, list),
+    }))
     .filter((group) => group.projects.length > 0);
 }

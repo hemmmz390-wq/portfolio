@@ -63,9 +63,7 @@ export default async function ProjectDetailPage(props: PageProps<"/work/[slug]">
           </div>
           {project.liveUrl && (
             <div>
-              <dt className="font-body text-[10px] uppercase tracking-[0.25em] text-muted">
-                Live
-              </dt>
+              <dt className="font-body text-[10px] uppercase tracking-[0.25em] text-muted">Live</dt>
               <dd className="mt-2">
                 <a
                   href={project.liveUrl}
@@ -114,32 +112,36 @@ export default async function ProjectDetailPage(props: PageProps<"/work/[slug]">
           <section className="mt-24 grid grid-cols-1 gap-10 tablet:grid-cols-[minmax(0,0.4fr)_minmax(0,1fr)] tablet:gap-16">
             <h2 className="font-body text-[10px] uppercase tracking-[0.3em] text-muted">Gallery</h2>
             {/* Shown at each image's own shape, never cropped: screenshots lose
-                their meaning if the edges are cut off. A lone image takes the
-                full column; several pair up. */}
+                their meaning if the edges are cut off. Images pair up; with an
+                odd count the first one leads at full width. Always in colour,
+                even when the cover is treated: this is where the work is seen. */}
             <div
               className={`grid grid-cols-1 gap-8 ${project.gallery.length > 1 ? "tablet:grid-cols-2" : ""}`}
             >
-              {project.gallery.map((image) => (
-                <figure key={image.src}>
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    width={image.width}
-                    height={image.height}
-                    sizes={
-                      project.gallery.length > 1
-                        ? "(max-width: 768px) 100vw, 35vw"
-                        : "(max-width: 768px) 100vw, 70vw"
-                    }
-                    className={`h-auto w-full border border-border ${imageTreatmentClass(project.imageTreatment)}`}
-                  />
-                  {image.caption && (
-                    <figcaption className="mt-3 font-body text-[10px] uppercase tracking-[0.2em] text-muted">
-                      {image.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ))}
+              {project.gallery.map((image, index) => {
+                const fullWidth = index === 0 && project.gallery.length % 2 === 1;
+                return (
+                  <figure key={image.src} className={fullWidth ? "tablet:col-span-2" : undefined}>
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      sizes={
+                        fullWidth
+                          ? "(max-width: 768px) 100vw, 70vw"
+                          : "(max-width: 768px) 100vw, 35vw"
+                      }
+                      className="h-auto w-full border border-border"
+                    />
+                    {image.caption && (
+                      <figcaption className="mt-3 font-body text-[10px] uppercase tracking-[0.2em] text-muted">
+                        {image.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                );
+              })}
             </div>
           </section>
         )}

@@ -92,7 +92,9 @@ Setting either back to `null` is supported — the card falls back to a typograp
 
 `imageTreatment` controls the filter applied to a project's images (`normal`, `grayscale`, `highContrast`, `monochrome`); see `lib/imageTreatment.ts`. Cards render the treatment by default and reveal full color on hover.
 
-The `gallery` array takes `{ src, alt, width, height, caption? }` entries and shows them on the detail page under **Gallery**, between the overview and the team. Images are never cropped: each shows at its real shape, so `width` and `height` must match the file (a test checks this). One image spans the full column; two or more pair up.
+The `gallery` array takes `{ src, alt, width, height, caption? }` entries and shows them on the detail page under **Gallery**, between the overview and the team. Images are never cropped: each shows at its real shape, so `width` and `height` must match the file (a test checks this). Images pair up two to a row; with an odd count the first one leads at full width. Gallery images are always shown in colour, whatever `imageTreatment` the cover uses.
+
+The web projects' galleries are screenshots of their live sites, kept in a folder per project (`public/images/projects/<slug>/`). The Hospi AI ones come from its demo (`/present` and the Front Office board). Marginku's app sits behind a sign-in, so its gallery shows the public pages, including the live calculator.
 
 #### Re-capturing screenshots
 
@@ -104,7 +106,7 @@ chrome --headless=new --disable-gpu --hide-scrollbars \
   --screenshot=out.png https://your-project-url
 ```
 
-then resized to 1600×1000 and converted to WebP with `sharp`.
+then resized to 1600×1000 and converted to WebP with `sharp`. The newer gallery shots were taken the same way at a 2× device scale, so they stay sharp after the resize. Pages that need a click to reach, like the Hospi AI staff board, were driven with `puppeteer-core` against the installed Chrome.
 
 ### Replacing the portraits
 
