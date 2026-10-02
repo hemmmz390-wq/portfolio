@@ -114,7 +114,7 @@ Two separate portraits are used:
 
 | File | Used by |
 | --- | --- |
-| `public/images/hero-arms-color.webp` | Homepage hero — **transparent cut-out, full colour**, so the masthead type runs behind the figure |
+| `public/images/hero-black-shirt.webp` | Homepage hero — **transparent cut-out, full colour**, so the masthead type runs behind the figure |
 | `public/images/hero.webp` | Open Graph / Twitter card image only |
 | `public/images/about-seated.webp` | About page |
 

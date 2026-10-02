@@ -64,7 +64,7 @@ export function Hero({
       <div className="pointer-events-none absolute bottom-0 left-1/2 z-[15] h-[52vh] -translate-x-1/2 tablet:h-[78vh]">
         {/* The rise lives on this inner box: the outer one's transform does
             the centring, and an animated transform would overwrite it. */}
-        <div className="hero-portrait-rise relative aspect-[653/1220] h-full" style={delay(150)}>
+        <div className="hero-portrait-rise relative aspect-[652/1216] h-full" style={delay(150)}>
           <div
             aria-hidden="true"
             className="absolute inset-[-25%] bg-[radial-gradient(ellipse_at_50%_45%,rgba(255,255,255,0.10),transparent_62%)]"
