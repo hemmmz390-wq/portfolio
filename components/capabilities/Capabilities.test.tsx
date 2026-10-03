@@ -12,5 +12,8 @@ describe("Capabilities", () => {
     expect(screen.getByText("Lightroom")).toBeInTheDocument();
     expect(screen.getByText("Content Creation & Video Editing")).toBeInTheDocument();
     expect(screen.getByText("CapCut")).toBeInTheDocument();
+    expect(screen.getByText("Languages")).toBeInTheDocument();
+    expect(screen.getByText("English — Conversational")).toBeInTheDocument();
+    expect(screen.getByText("Mandarin — Conversational")).toBeInTheDocument();
   });
 });

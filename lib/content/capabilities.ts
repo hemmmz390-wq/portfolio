@@ -16,4 +16,9 @@ export const capabilities: Capability[] = [
     title: "Content Creation & Video Editing",
     tools: ["CapCut", "AI Studio"],
   },
+  {
+    number: "04",
+    title: "Languages",
+    tools: ["English — Conversational", "Mandarin — Conversational"],
+  },
 ];
