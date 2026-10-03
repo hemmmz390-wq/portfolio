@@ -10,8 +10,8 @@ import {
 } from "@/lib/content/projects";
 
 describe("projects content", () => {
-  it("has exactly 4 real projects", () => {
-    expect(projects).toHaveLength(4);
+  it("has exactly 5 real projects", () => {
+    expect(projects).toHaveLength(5);
   });
 
   it("finds a project by slug", () => {
@@ -77,6 +77,7 @@ describe("project disciplines", () => {
       "marginku",
       "hospi-ai",
       "hibiz",
+      "kosguide",
     ]);
     expect(getProjectsByDiscipline("content").map((project) => project.slug)).toEqual([
       "neduh-gas",
