@@ -129,14 +129,14 @@ export const projects: Project[] = [
     number: "04",
     title: "Kosguide",
     discipline: "web",
-    category: "SEO Content Site / Affiliate Guide",
+    category: "SEO & SEM Website / Affiliate Guide",
     year: "2026",
-    role: "Web Developer & SEO",
+    role: "Web Developer, SEO & SEM",
     liveUrl: "https://kosguide.vercel.app",
     shortDescription:
-      "An SEO-driven guide to the things students actually need in a rented room, with real product photos and price ranges.",
+      "An SEO and SEM website: a search-driven guide to the things students actually need in a rented room, with real product photos and price ranges.",
     description:
-      "Kosguide is an Indonesian-language editorial site for students and anak rantau — people living away from home in a rented kos room. It curates the items that genuinely earn their place in a small room, each with an honest reason it was picked, a price range, its real product photos, and a Shopee link. Around that sit long-form guides, six category pages, a search, and a starter-pack calculator that builds a shopping list to fit a moving-in budget. The site is built to be found: every page carries structured data — articles as BlogPosting with breadcrumbs, FAQ sections as FAQPage, product picks as ItemList — alongside a sitemap and a robots policy that deliberately lets AI crawlers in so the guides can be cited by AI answers. An editorial policy and an affiliate disclosure page sit in the footer, and every product link is flagged as an affiliate link.",
+      "Kosguide is an SEO and SEM website — built from the ground up to win traffic from search, both organically through search engine optimization and through search engine marketing. It is an Indonesian-language editorial site for students and anak rantau — people living away from home in a rented kos room. It curates the items that genuinely earn their place in a small room, each with an honest reason it was picked, a price range, its real product photos, and a Shopee link. Around that sit long-form guides, six category pages, a search, and a starter-pack calculator that builds a shopping list to fit a moving-in budget. On the SEO side, every page carries structured data — articles as BlogPosting with breadcrumbs, FAQ sections as FAQPage, product picks as ItemList — alongside a sitemap and a robots policy that deliberately lets AI crawlers in so the guides can be cited by AI answers. On the SEM side, the pages are built to work as landing pages for search campaigns: each pick goes straight from the reason it was chosen to a price range and a Shopee link, and a separate /promo/ section is kept out of crawling so it never competes with the organic pages. An editorial policy and an affiliate disclosure page sit in the footer, and every product link is flagged as an affiliate link.",
     coverImage: "/images/projects/kosguide/landing.webp",
     heroImage: "/images/projects/kosguide/landing.webp",
     imageTreatment: "grayscale",
