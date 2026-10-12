@@ -6,6 +6,7 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { ProjectTeam } from "@/components/projects/ProjectTeam";
 import { projects, getProjectBySlug } from "@/lib/content/projects";
 import { imageTreatmentClass } from "@/lib/imageTreatment";
+import { ogImage } from "@/lib/og-image";
 
 export async function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -23,6 +24,7 @@ export async function generateMetadata(props: PageProps<"/work/[slug]">): Promis
     openGraph: {
       title: project.title,
       description: project.shortDescription,
+      images: [ogImage],
     },
   };
 }

@@ -115,10 +115,10 @@ Two separate portraits are used:
 | File | Used by |
 | --- | --- |
 | `public/images/hero-black-shirt.webp` | Homepage hero — **transparent cut-out, full colour**, so the masthead type runs behind the figure |
-| `public/images/hero.webp` | Open Graph / Twitter card image only |
+| `public/images/og-portfolio.jpg` | Link-preview card (Open Graph / Twitter), 1200×630 JPEG |
 | `public/images/about-seated.webp` | About page |
 
-The hero needs a background-removed image with a real alpha channel; a photo with its background intact would sit as an opaque rectangle across the masthead. The social card deliberately uses the *non*-cut-out photo, since a transparent PNG renders against whatever background each platform picks.
+The hero needs a background-removed image with a real alpha channel; a photo with its background intact would sit as an opaque rectangle across the masthead. The link-preview card is a separate, finished 1200×630 design rather than a portrait. It is a JPEG because some platforms (WhatsApp, LinkedIn) still skip WebP previews, and it is wired up once in `lib/og-image.ts`. Replace the file under a new name and update the path there.
 
 Replace either file to change that portrait. Both are cropped to suit their container (the hero is wide and anchored near the top; the About image is exactly 3:4), so re-crop a replacement to a similar ratio or adjust the `object-position` class on the corresponding `<Image>`.
 

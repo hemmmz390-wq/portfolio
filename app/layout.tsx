@@ -11,6 +11,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LenisProvider } from "@/components/layout/LenisProvider";
 import { siteSettings, navLinks } from "@/lib/content/site";
+import { ogImage } from "@/lib/og-image";
 
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
@@ -55,13 +56,13 @@ export const metadata: Metadata = {
     siteName: siteSettings.name,
     title: `${siteSettings.name} — ${siteSettings.role}`,
     description: siteSettings.introParagraph,
-    images: ["/images/hero.webp"],
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteSettings.name} — ${siteSettings.role}`,
     description: siteSettings.introParagraph,
-    images: ["/images/hero.webp"],
+    images: [ogImage],
   },
 };
 
