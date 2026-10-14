@@ -5,7 +5,7 @@ import { photographs } from "@/lib/content/photography";
 
 describe("photography content", () => {
   it("has a frame for every photograph supplied", () => {
-    expect(photographs).toHaveLength(6);
+    expect(photographs).toHaveLength(8);
   });
 
   it("records both competition results as Elbert stated them", () => {

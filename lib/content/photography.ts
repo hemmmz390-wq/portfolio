@@ -46,4 +46,16 @@ export const photographs: Photograph[] = [
     width: 2000,
     height: 1123,
   },
+  {
+    src: "/images/photography/temple-offering-walk.webp",
+    alt: "A woman in white temple dress walking past a carved stone gate, a woven basket of offerings balanced on her head",
+    width: 2000,
+    height: 1127,
+  },
+  {
+    src: "/images/photography/sunset-jump-field.webp",
+    alt: "Two people silhouetted mid-jump over a field at sunset, the sun low behind them",
+    width: 965,
+    height: 543,
+  },
 ];
